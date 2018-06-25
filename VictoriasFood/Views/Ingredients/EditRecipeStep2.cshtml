@@ -1,0 +1,76 @@
+﻿@model VictoriasFood.ViewModels.IngredientsIEIngredientLine
+@{
+    ViewBag.Title = "Edit Recipe Step 2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="well-sm-8">
+    <div class="container recipe-container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12 edit-recipe-body">
+                @using (Html.BeginForm("UpdateIngredientsInDatabase", "Ingredients"))
+                {
+                <h4 class="text-primary">Edit recipe - Step 2</h4>
+                <div class="message-required-fields"><p>* Required Fields</p></div>
+                <div class="edit-recipe-step">
+                    <p class="text-primary">Ingredients:</p>  
+                    @*<div style="text-align: right;">
+                        @Html.ActionLink("Delete list", "DeleteIngredientsInExistingRecipeList", "Ingredients",
+                                new { confirm = true, id = Model.IngredientsData.ingredientsID },
+                                new { onclick = "return confirm('Do you really want to delete whole ingredient list permanently?')", @class = "btn btn-xs btn-primary" })
+                    </div>*@                     
+                    <div class="edit-recipe-ingredients">
+                        <div>
+                            @Html.LabelFor(m => Model.IngredientsData.ingredientsCategoryTitle)
+                            @Html.TextBoxFor(m => Model.IngredientsData.ingredientsCategoryTitle)
+                        </div>
+                        <div>
+                            @Html.LabelFor(m => Model.IngredientsData.ingredientsDescription)
+                            @Html.TextBoxFor(m => Model.IngredientsData.ingredientsDescription)
+                        </div>
+                        <div>
+                            <div class="message-required-fields"><p>Click on the item name for edit and delete</p></div>
+                            <table>
+                                <tr>
+                                    <th>@Html.LabelFor(m => m.IngredientLineData.First().itemTitle) *</th>
+                                    <th>@Html.LabelFor(m => m.IngredientLineData.First().itemDescription)</th>
+                                    <th>@Html.LabelFor(m => m.IngredientLineData.First().baseQuantity) *</th>
+                                    <th>@Html.LabelFor(m => m.IngredientLineData.First().measurementMetricSystem)</th>
+                                </tr>
+                                @foreach (var ingredientsIngredientLineData in Model.IngredientsIngredientLineData)
+                                {
+                                    if (ingredientsIngredientLineData.ingredientsID == Model.IngredientsData.ingredientsID)
+                                    {
+                                        foreach (var ingredientLine in Model.IngredientLineData)
+                                        {
+                                            if (ingredientLine.ingredientLineID == ingredientsIngredientLineData.ingredientLineID)
+                                            {
+                                                <tr>
+                                                    <td>@Html.ActionLink(ingredientLine.itemTitle, "EditRecipeStep2IngredientLine", "Ingredients", new { id = ingredientLine.ingredientLineID }, null)</td>
+                                                    <td>@ingredientLine.itemDescription</td>
+                                                    <td>@ingredientLine.baseQuantity.ToString()</td>
+                                                    <td>@ingredientLine.measurementMetricSystem</td>
+                                                </tr>                                               
+                                            }
+                                        }
+                                    }
+                                }
+                            </table>
+                          
+                        </div>
+                        <div style="text-align:right;">
+                            @Html.ActionLink("Add new ingredient", "EditRecipeStep2AddIngredientLine", "Ingredients", new { id = Model.IngredientsData.ingredientsID }, new { @class = "button btn btn-sm btn-default-2" })
+                        </div>
+                        <div>
+                            @Html.HiddenFor(m => m.IngredientsData.ingredientsID)
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-sm btn-primary save-edit"> Save </button>
+                            @Html.ActionLink("Back", "EditRecipeStep1", "Recipe", new { id = Model.RecipeIngredientsData.recipeID }, new { @class = "button btn btn-sm btn-default-2" })
+                        </div>
+                    </div>   
+                </div>                   
+                }
+            </div>
+        </div>
+    </div>
+</section>

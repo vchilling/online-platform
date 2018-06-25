@@ -1,0 +1,44 @@
+﻿@model VictoriasFood.ViewModels.RecipeIngredientsViewModel
+@{
+    ViewBag.Title = "Create Recipe Step 2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="well-sm-8">
+    <div class="container recipe-container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12 edit-recipe-body">
+                @using (Html.BeginForm("CreateIngredientsInDatabase", "Ingredients"))
+                {
+                    <h4 class="text-primary">Create recipe - Step 2</h4>
+                    <div class="edit-recipe-step">
+                        <p class="text-primary">Ingredients:</p>
+                        <div class="edit-recipe-ingredients">
+                            <div>
+                                @Html.LabelFor(m => m.IngredientsData.ingredientsCategoryTitle)
+                                @Html.TextBoxFor(m => m.IngredientsData.ingredientsCategoryTitle)
+                            </div>
+                            <div>
+                                @Html.LabelFor(m => Model.IngredientsData.ingredientsDescription)
+                                @Html.TextBoxFor(m => Model.IngredientsData.ingredientsDescription)
+                            </div>
+                            <div>
+                                @Html.HiddenFor(m => Model.RecipeID)
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-sm btn-primary save-edit"> Add ingredients </button>
+                            </div>
+                        </div>
+                    </div>
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="mfControls ">
+                                    @Html.ActionLink("Back", "EditRecipeStep2", "Ingredients", new { id = Model.RecipeID }, new { @class = "button btn btn-sm btn-default-2" })
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,9 +1,36 @@
 ﻿@model System.Web.Mvc.HandleErrorInfo
-
 @{
-    ViewBag.Title = "Error";
+    ViewBag.Title = "404 Page Not Found";
 }
+<section class="well-sm-2">
+    <div class="container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-7">
+                <h2 class="text-primary ">Error 404</h2>                            
+                <h3 class="text-primary offset-8 text-bold">
+                    @*An error occurred while processing your request.*@
+                    Page not found.
+                </h3>
+                <p class="letter-spacing-2">
+                    Nothing to see here...  Just kidding. There's plenty to see on <strong>@Html.ActionLink("FOOD recipes", "Index", "Home")</strong>. Why not try a search, or take a look at our @Html.ActionLink("recipe categories", "AllCategories", "Category", null)?</p>
+                <!-- RD Navbar Search -->
+                @using (Html.BeginForm("SearchRecipes", "Recipe"))
+                {
+                    <div class="rd-navbar-search rd-navbar-search1">
+                        <label class="rd-navbar-search-form-input">
+                            <input type="text" name="searchInputText" id="searchInputText" placeholder="Search recipes" autocomplete="off" />
+                        </label>
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
-
+                        <button type="submit" class="rd-navbar-search-form-submit" id="search-submit"></button>
+                        <span class="rd-navbar-live-search-results"></span>
+                        <button type="submit" class="rd-navbar-search-toggle" data-rd-navbar-toggle=".rd-navbar-search"></button>
+                    </div>
+                <!-- END RD Navbar Search -->
+                }
+            </div>
+            <div class="col-md-5">
+                <img width="470" height="392" alt="About us" src="../../Content/images/donut.png">
+            </div>
+        </div>
+    </div>
+</section>

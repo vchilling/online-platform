@@ -21,11 +21,18 @@ namespace VictoriasFood
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+                      "~/Scripts/js/core.min.js",
+                      "~/Scripts/js/script.js",
+                      "~/Scripts/datatables/jquery.dataTables.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      //"~/Content/bootstrap.css",
+                      //"~/Content/site.css",
+                      "~/Content/css/restaurant.css",
+                      "~/Content/css/thin.css",
+                      "~/Content/css/style.css",
+                      "~/Content/css/datatables/jquery.dataTables.css"));
         }
     }
 }

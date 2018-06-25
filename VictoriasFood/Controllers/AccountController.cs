@@ -7,20 +7,26 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using VictoriasFood.Models;
+using System.Data.Entity;
 
 namespace VictoriasFood.Controllers
 {
     [Authorize]
     public class AccountController : Controller
-    {
+    {      
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        //Access Data from Data Base
+        private ApplicationDbContext _context;
 
         public AccountController()
         {
-        }
+            _context = new ApplicationDbContext();
+        }        
+        //End Access Data from Data Base
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
@@ -57,6 +63,9 @@ namespace VictoriasFood.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if (Session["AuthorID"] != null) {
+                return RedirectToAction("Index", "Home");
+            }
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -79,6 +88,9 @@ namespace VictoriasFood.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    Session["AuthorEmail"] = model.Email;
+                    var author = _context.Authors.Single(c => c.email == model.Email);
+                    Session["AuthorID"] = author.authorID;
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -139,6 +151,10 @@ namespace VictoriasFood.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            if (Session["AuthorID"] != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
@@ -155,15 +171,35 @@ namespace VictoriasFood.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    /* -Temp Code for creating user role admin
+                    var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    await roleManager.CreateAsync(new IdentityRole("CanManageEverything"));
+                    await UserManager.AddToRoleAsync(user.Id, "CanManageEverything"); */
+                    // -end TempCode
+
+                    /* -Temp Code for creating user role member
+                    var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    await roleManager.CreateAsync(new IdentityRole("CanManageRecipes")); */
+                    await UserManager.AddToRoleAsync(user.Id, "CanManageRecipes");
+                    // -end TempCode                    
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
+
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
+                    //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    var author = new Author()
+                    {
+                       email = user.Email
+                    };
+                    
+                    return RedirectToAction("CreateAuthor", "Author", author);
                 }
                 AddErrors(result);
             }
@@ -190,6 +226,10 @@ namespace VictoriasFood.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
+            if (Session["AuthorID"] != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
@@ -385,6 +425,13 @@ namespace VictoriasFood.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public ActionResult LogOff(string token)
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            Session.Abandon();
+            return RedirectToAction("Index", "Home");
+        }
         //
         // POST: /Account/LogOff
         [HttpPost]
@@ -392,7 +439,16 @@ namespace VictoriasFood.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            Session.Abandon();
             return RedirectToAction("Index", "Home");
+        }
+        //
+        // GET: /Account/SessionExpired
+        [AllowAnonymous]
+        public bool SessionExpired()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);          
+            return true;
         }
 
         //
@@ -417,6 +473,10 @@ namespace VictoriasFood.Controllers
                 {
                     _signInManager.Dispose();
                     _signInManager = null;
+                }
+                if (_context != null)
+                {
+                    _context.Dispose();
                 }
             }
 
@@ -447,6 +507,9 @@ namespace VictoriasFood.Controllers
         {
             if (Url.IsLocalUrl(returnUrl))
             {
+                if (returnUrl.Contains("AddRecipeToFavourites")) {
+                    returnUrl = returnUrl.Replace("AddRecipeToFavourites?idRecipe=", "DetailsRecipe/");
+                }
                 return Redirect(returnUrl);
             }
             return RedirectToAction("Index", "Home");

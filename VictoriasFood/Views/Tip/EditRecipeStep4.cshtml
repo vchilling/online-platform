@@ -1,0 +1,41 @@
+﻿@model VictoriasFood.Models.Tip
+@{
+    ViewBag.Title = "Edit Recipe Tip";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="well-sm-8">
+    <div class="container recipe-container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12 edit-recipe-body">
+                @using (Html.BeginForm("UpdateTipInDatabase", "Tip"))
+                {
+                    <h4 class="text-primary">Edit recipe - step 4</h4>                   
+                    <div class="edit-recipe-step">
+                        <p class="text-primary">Edit recipe tip:</p>
+                        <div style="text-align: right;">
+                            @Html.ActionLink("Delete", "DeleteTipForExistingRecipe", "Tip",
+                                new { confirm = true, id = Model.tipID },
+                                new { onclick = "return confirm('Do you really want to delete this tip permanently?')", @class = "btn btn-xs btn-primary" })
+                        </div>  
+                        <div class="edit-recipe-ingredients">
+                            <div>
+                                @Html.LabelFor(m => Model.tipTitle)
+                                @Html.TextBoxFor(m => Model.tipTitle)
+                            </div>
+                            <div>
+                                @Html.LabelFor(m => Model.tipDescription)
+                                @Html.TextBoxFor(m => Model.tipDescription)
+                            </div> 
+                            <div>
+                                @Html.HiddenFor(m => m.tipID)
+                                @Html.AntiForgeryToken()                               
+                                <button type="submit" class="btn btn-sm btn-primary save-edit"> Save </button>
+                                @Html.ActionLink("Back", "EditRecipeStep1", "Recipe", new { id = Model.recipeID }, new { @class = "button btn btn-sm btn-default-2" })                               
+                            </div>
+                        </div>
+                    </div>                   
+                }
+            </div>
+        </div>
+</section>

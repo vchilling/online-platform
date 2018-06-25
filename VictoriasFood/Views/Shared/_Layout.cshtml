@@ -1,44 +1,96 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en" class="wide smoothscroll wow-animation">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="format-detection" content="telephone=no" />
+    <title>@ViewBag.Title | Victoria's food</title>
+    <link rel="icon" type="image/x-icon" href="@Url.Content("../../Content/images/favicon.png")" />
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-
+    @*@Scripts.Render("~/bundles/modernizr")*@    
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <main class="page">
+        <!-- HEADER -->
+        @if (Session["AuthorID"] != null)
+        {
+            if (User.IsInRole("CanManageRecipes"))
+            {
+                @Html.Partial("_HeaderUser")
+            }
+            else if (User.IsInRole("CanManageEverything"))
+            {
+                @Html.Partial("_HeaderAdmin")
+            }
+            else
+            {
+                @Html.Partial("_HeaderGuest")
+            }
+        }
+        else
+        {
+            @Html.Partial("_HeaderGuest")
+        }
+        <!-- CONTENT -->
+        <main class="page-content">
+            @RenderBody()
+        </main>
+        <!-- FOOTER -->
+        <footer class="page-footer bg-default-3">
+            <div class="container">
+                <div class="row text-center text-md-left">
+                    <div class="col-md-3">
+                        <!-- RD Navbar Brand -->
+                        <div class="rd-navbar-brand">
+                            <span class="brand-name text-white text-bold" style="text-transform: none!important;">
+                                @Html.ActionLink("FOOD recipes", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                            </span>
+                        </div>
+                        <!-- END RD Navbar Brand -->
+                        <div class="copyright">
+                            <p>&copy; @DateTime.Now.Year 
+                                | @Html.ActionLink("Privacy Policy", "PrivacyPolicy", "Home")
+                                <!-- {%FOOTER_LINK} -->
+                            </p>                           
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <address class="contact-info">
+                            <dl>
+                                <dt>Bulgaria - Sofia,</dt>
+                                <dt>Blvd. Vitosha №15</dt>
+                                <dt>E -mail:<a href="mailto:victoriafoodrecipes@gmail.com">foodrecipes@gmail.com</a></dt>
+                                <dd>
+                                    <a href="callto:#">+359 888 898989</a>
+                                </dd>
+                            </dl>
+                        </address>
+                    </div>
+                    <div class="col-md-2">
+                        <ul class="inline-list text-center text-lg-left">
+                            <li>
+                                <a class="icon-xs fa-facebook" href="https://www.facebook.com/"></a>
+                            </li>                           
+                            <li>
+                                <a class="icon-xs fa-instagram" href="https://www.instagram.com/"></a>
+                            </li>
+                            <li>
+                                <a class="icon-xs fa-twitter" href="https://twitter.com/"></a>
+                            </li>
+                            <li>
+                                <a class="icon-xs fa-google-plus" href="https://plus.google.com/"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
-
+        </footer>       
+    </main>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+   
 </body>
 </html>

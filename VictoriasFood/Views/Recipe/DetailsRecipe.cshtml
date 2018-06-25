@@ -1,0 +1,459 @@
+﻿@model VictoriasFood.ViewModels.RecipeAllInformation
+@{
+    ViewBag.Title = "Details of recipe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (Session["AuthorID"] != null)
+    {
+        ViewBag.SessionAuthor = (int)Session["AuthorID"];
+    }
+    else
+    {
+        ViewBag.SessionAuthor = 0;
+    }
+}
+<section class="well-sm-8">
+    @if ( (User.IsInRole("CanManageEverything")) || (ViewBag.SessionAuthor == Model.AuthorData.authorID) )
+    {
+        <div class="container recipe-container">
+            <div class="row text-center text-md-left">
+                <div class="wrapper-edit-button">
+                    @Html.ActionLink("Edit recipe", "EditRecipeStep1", "Recipe", new { id = Model.RecipeData.recipeID }, new { @class = "btn btn-xs btn-primary" })
+                    @Html.ActionLink("Delete recipe", "DeleteRecipe", "Recipe",
+                            new { confirm = true, id = Model.RecipeData.recipeID },
+                            new { onclick = "return confirm('Do you really want to delete this recipe permanently?')", @class = "btn btn-xs btn-primary" })                    
+                </div>
+            </div>
+        </div>     
+    }
+    <div class="container bg-default-7 recipe-container">
+        <div class="row text-center text-md-left">
+            <div class="recipe-nav-container">               
+                <p>
+                    @Html.ActionLink("Home", "Index", "Home")
+                    <span>&nbsp;>&nbsp;</span>
+                    @Html.ActionLink("All categories", "AllCategories", "Category")
+                    <span>&nbsp;>&nbsp;</span>
+                    @Html.ActionLink(Model.CategoryData.categoryTitle, "AllSubcategories", "Category", new { id = Model.CategoryData.categoryID }, null)
+                    <span>&nbsp;>&nbsp;</span>
+                    @Html.ActionLink(Model.SubcategoryData.subcategoryTitle, "SubcategoryRecipes", "Recipe", new { id = Model.SubcategoryData.subcategoryID }, null)
+                </p>  
+            </div>
+            <div class="col-md-12 recipe-body">
+                <div class="row recipe-header">
+                    <div class="col-md-6">
+                        <img alt="@Model.RecipeData.recipeTitle" src="@Model.RecipeData.recipeImage">
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <h2 class="text-bold text-primary">@Model.RecipeData.recipeTitle</h2>                          
+                        </div>
+                        <div class="recipe-info recipe-raiting">
+                            @if (Model.ReviewData.Any())
+                            {
+                                var rateSum = 0;
+                                var counterOfRates = 0;
+
+                                foreach (var review in Model.ReviewData)
+                                {
+                                    rateSum += review.reviewRate;
+                                    counterOfRates++;
+                                }
+                                var rate = rateSum / counterOfRates;
+                                var mod = rateSum % counterOfRates;
+                                if (mod >= 4)
+                                {
+                                    rate += 1;
+                                    mod = 0;
+                                }
+                                <p>
+                                    @for (var i = 0; i < 5; i++)
+                                    {
+                                        if (i < rate)
+                                        {
+                                            <span class="fa fa-star"></span>
+
+                                        }
+                                        else if (mod != 0)
+                                        {
+                                            <span class="fa fa-star-half-o"></span>
+                                            mod = 0;
+                                        }
+                                        else
+                                        {
+                                            <span class="fa fa-star-o"></span>
+
+                                        }
+                                    }
+                                    @if (@counterOfRates == 1)
+                                    {
+                                        <i> @counterOfRates review </i>
+                                    }
+                                    else
+                                    {
+                                        <i> @counterOfRates reviews </i>
+                                    }
+                                </p>
+                            }
+                            else
+                            {
+                                <p>
+                                    @for (var i = 0; i < 5; i++)
+                                    {                                    
+                                        <span class="fa fa-star-o"></span>                                       
+                                    }
+                                    <i> 0 ratings </i>
+                                </p>
+
+                            }
+                        </div>
+                        <div class="recipe-info">
+                            <span class="author-icon"></span> Recipe by <span>@Html.ActionLink(@Model.AuthorData.authorFirstName + " " + @Model.AuthorData.authorLastName, "RecipesByAuthor", "Recipe", new { id = @Model.AuthorData.authorID }, null)</span>
+                        </div>
+                        <div class="recipe-info">
+                            <div> <span class="ready-in-icon"></span> 
+                            @if (@Model.RecipeData.recipeReadyIn.Hour == 0)
+                            {
+                               <font>@Model.RecipeData.recipeReadyIn.Minute min</font>
+                            }
+                            else
+                            {
+                                <font>@Model.RecipeData.recipeReadyIn.ToString("HH:mm") h</font>                               
+                            }
+                            </div>
+                            <div> <span class="servings-icon"></span> @Model.RecipeData.recipeNumberOfServings servings</div>
+                            <div>
+                                @if (Model.SuitableForData.Any())
+                                {
+                                    <span class="suitable-for-icon"></span> <font>Suitable for</font>
+                                    foreach(var suitableFor in Model.SuitableForData)
+                                    {
+                                        <span> @Html.ActionLink(suitableFor.suitableForTitle, "SuitableForRecipes", "Recipe", new { id = suitableFor.suitableForID }, null) </span>
+                                    }
+                                }
+                                
+                            </div>
+                        </div>
+                        <div class="recipe-info">
+                            <p>@Model.RecipeData.recipeDescription</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-actions">
+                    <hr class="recipe-hr" />                   
+                    <div class="row">
+                        <div class="col-md-3 wow fadeInLeft">
+                            <div class="favourites @((ViewBag.IsFavourited) ? "" : "active")" style="display: inline-block!important;">
+                                <div class="add">
+                                    @Ajax.ActionLink(" ", "AddRecipeToFavourites", "Recipe",
+                                new { idRecipe = Model.RecipeData.recipeID, idAuthor = Session["AuthorID"] },
+                                new AjaxOptions { OnSuccess = "ToggleFavouriteLink" })
+                                </div>
+                                <div class="delete">
+                                    @Ajax.ActionLink(" ", "DeleteRecipeFromFavourites", "Recipe",
+                                new { idRecipe = Model.RecipeData.recipeID, idAuthor = Session["AuthorID"] },
+                                new AjaxOptions { OnSuccess = "ToggleFavouriteLink" })
+                                </div>
+                            </div>
+                            @if (@ViewBag.IsFavourited)
+                            {
+                                <h3 style="display: inline-block!important; color: #cf2329;">
+                                    @Ajax.ActionLink("Favorite", "DeleteRecipeFromFavourites", "Recipe",
+                                new { idRecipe = Model.RecipeData.recipeID, idAuthor = Session["AuthorID"] },
+                                new AjaxOptions { OnSuccess = "ToggleFavouriteLink" })
+                                </h3>
+                            }
+                            else
+                            {
+                                <h3 style="display: inline-block!important;">                                   
+                                     @Ajax.ActionLink("Save it", "AddRecipeToFavourites", "Recipe",
+                                new { idRecipe = Model.RecipeData.recipeID, idAuthor = Session["AuthorID"] },
+                                new AjaxOptions { OnSuccess = "ToggleFavouriteLink" })                                    
+                                </h3>
+                            }
+                        </div>
+                        <div class="col-md-3">
+                            <h3><span class="thin-icon-email-open"></span><a href="#" class="share-button">Share</a></h3>
+                        </div>
+                        <div class="col-md-3">
+                            <h3><span class="thin-icon-chat"></span><a href="#review-section">Rate it</a></h3>
+                        </div>
+                        <div class="col-md-3 wow fadeInRight">
+                            <h3><span class="thin-icon-checklist"></span><a href="javascript:window.print()">Print</a></h3>
+                        </div>
+                    </div>
+                    <div class="row share-buttons-wrapper">
+                        <div class="col-md-6">
+                            <!-- AddToAny BEGIN -->
+                            <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                                <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                                <a class="a2a_button_facebook"></a>
+                                <a class="a2a_button_twitter"></a>
+                                <a class="a2a_button_google_plus"></a>
+                                <a class="a2a_button_google_gmail"></a>
+                                <a class="a2a_button_pinterest"></a>
+                                <a class="a2a_button_email"></a>
+                                <a class="a2a_button_facebook_messenger"></a>
+                                <a class="a2a_button_skype"></a>
+                                <a class="a2a_button_viber"></a>
+                                <a class="a2a_button_outlook_com"></a>
+                            </div>
+                            <script async src="https://static.addtoany.com/menu/page.js"></script>
+                            <!-- AddToAny END -->
+                        </div>
+                    </div>
+                    <hr class="recipe-hr" />
+                </div>
+                <div class="recipe-ingredients">
+                    <h3>Ingredients</h3>
+                    <hr class="recipe-hr" />
+                    @foreach (var ingredientsList in Model.IngredientsData)
+                    {
+                        if (ingredientsList.ingredientsCategoryTitle != null)
+                        {
+                            <h6>@ingredientsList.ingredientsCategoryTitle</h6>
+                        }
+                        if (ingredientsList.ingredientsDescription != null)
+                        {
+                            <p>@ingredientsList.ingredientsDescription</p>
+                        }
+                        <ul>
+                            @foreach (var ingredientsIngredientLineData in Model.IngredientsIngredientLineData)
+                            {
+                                if (ingredientsIngredientLineData.ingredientsID == ingredientsList.ingredientsID)
+                                {
+                                    foreach (var ingredientLine in Model.IngredientLineData)
+                                    {
+                                        if (ingredientLine.ingredientLineID == ingredientsIngredientLineData.ingredientLineID)
+                                        {
+                                            <li> @ingredientLine.baseQuantity @ingredientLine.measurementMetricSystem @ingredientLine.itemTitle
+                                                 @if ((@ingredientLine.itemDescription != null) && (@ingredientLine.itemDescription != ""))
+                                                {
+                                                <font>(@ingredientLine.itemDescription)</font>
+                                                }
+                                             </li>
+                                        }
+                                    }
+                                }
+                            }
+                        </ul>
+                    }
+                </div>
+                <div class="recipe-directions">
+                    <h3>Directions</h3>
+                    <hr class="recipe-hr" />
+                    @if (Model.DirectionData.directionTitle != null)
+                    {
+                        <h6>@Model.DirectionData.directionTitle</h6>
+                    }
+                    @if (Model.DirectionData.directionDescription != null)
+                    {
+                        <p>@Model.DirectionData.directionDescription</p>
+                    }
+                    <ol>
+                        @foreach (var directionLine in Model.DirectionLineData)
+                        {
+                            <li>
+                                @if ((directionLine.directionLineDescription != null) && (directionLine.directionLineDescription != ""))
+                                {
+                                    <span>@directionLine.directionLineDescription</span><br />
+                                }
+                                @directionLine.directionLineText
+
+
+                            </li>
+                        }
+                    </ol>
+                </div>
+                @if (Model.TipData != null)
+                {
+                    <div class="recipe-tip">
+                        <h3>Tip</h3>
+                        <hr class="recipe-hr" />
+                        <h6>@Model.TipData.tipTitle</h6>
+                        <p>@Model.TipData.tipDescription</p>
+                    </div>
+                }
+                <div class="recipe-reviews">
+                    <h3><span id="review-section"></span>Reviews</h3>
+                    <hr class="recipe-hr" />
+                    <div class="add-review">    
+                        @using (Html.BeginForm("CreateReviewInDatabase", "Recipe", new { @id = "review-form" }))
+                        {
+                            @Html.ValidationSummary(true)  
+                            <div>
+                                <div>
+                                    <span class="editor-label">Your review:</span>
+                                </div>
+                                <div id="raiting-stars">
+                                    @for (var i = 1; i < 6; i++)
+                                    {
+                                         @*<span class="fa fa-star-o">*@
+                                        <input class="fa fa-star-o" type="radio" name="score" value="@i"/>
+                                    }
+                                </div>                               
+                                <div>
+                                    <textarea id="comment" rows="2" cols="20"></textarea>
+                                </div>
+                                <div>
+                                    <input type="hidden" id="hiddenDateTime"/>
+                                    <input type="hidden" id="hiddenRecipeID"/>
+                                    <input type="hidden" id="hiddenAuthorID"/>
+                                </div>
+                                <div class="button-wrapper">
+                                    <input type="submit" id="submit" value="Add review" class="btn btn-xs btn-default-2" />                                
+                                </div>
+                            </div>
+                        }           
+                    </div>
+                    <hr class="recipe-hr" style="margin-top: 30px;" />                    
+                    @if (!Model.ReviewData.Any())
+                    {
+                        <h5>Be the first to comment this recipe...</h5>
+                        <p>
+                            We'd love to hear how you got on with this recipe.
+                            <br />Did you like it? Would you recommend others give it a try?
+                        </p>
+                    }
+                    else
+                    {                        
+                        <div class="row block2 recipe-reviews-wrapper">
+                            @{var counterOfReviewText = 0;
+                                foreach (var review in Model.ReviewData.Reverse())
+                                {
+                                    if ((review.reviewText != null) && (review.reviewText != ""))
+                                    {
+                                        counterOfReviewText++;
+                                        <div class="col-md-3 col-sm-6 hideme">
+                                            <div class="bg-white">
+                                                <h6>Review by 
+                                                    @Model.ReviewAuthorData.FirstOrDefault(c => c.authorID == review.authorID).authorFirstName
+                                                    @Model.ReviewAuthorData.FirstOrDefault(c => c.authorID == review.authorID).authorLastName
+                                               </h6>
+                                                <hr class="recipe-hr" />
+                                                <p>
+                                                    @review.reviewText
+                                                </p>
+                                                <p>
+                                                    @for (var i = 0; i < 5; i++)
+                                                    {
+                                                        if (i < @review.reviewRate)
+                                                        {
+                                                            <span class="fa fa-star"></span>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="fa fa-star-o"></span>
+
+                                                        }
+                                                    }
+                                                </p>
+                                                <p>@review.reviewDateTime.ToString("d")</p>
+                                            </div>
+                                        </div>
+                                    }
+                                }                           
+                            }
+                        </div>                       
+                        if (counterOfReviewText == 0)
+                        {
+                        <h5>Be the first to comment this recipe...</h5>
+                        <p>
+                            We'd love to hear how you got on with this recipe.
+                            <br />Did you like it? Would you recommend others give it a try?
+                        </p>
+                        }                     
+                    }
+                </div>
+            </div>         
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+$(document).ready(function () {  
+    $(function ToggleFavouriteLink () {
+        $(".favourites").toggleClass("active");
+    });
+
+    var hoveredRaiting = 0;
+    var selectedRaiting = 0;
+
+    $("#raiting-stars input").hover(function () {
+        hoveredRaiting = $(this).val();
+        for (var index = 1; index <= hoveredRaiting; index++) {
+            $('#raiting-stars input[value="' + index + '"]').removeClass("fa-star-o").addClass("fa-star");
+        };
+    }, function () {
+        for (var index = 1; index <= hoveredRaiting; index++) {
+            $('#raiting-stars input[value="' + index + '"]').removeClass("fa-star").addClass("fa-star-o");
+        };
+    });
+
+    $('#raiting-stars input').on('change', function () {
+        selectedRaiting = $('input[name=score]:checked', '#raiting-stars').val();
+        for (var index = 1; index <= 5; index++) {
+            if (index <= selectedRaiting)
+            {
+                $('#raiting-stars input[value="' + index + '"]').addClass("selected-rate");
+            } else
+            {
+                $('#raiting-stars input[value="' + index + '"]').removeClass("selected-rate");
+            }
+        };
+    });
+
+    $('form').submit(function () {
+        var dateTimeNow = new Date($.now());        
+        var reviewObj = {
+            recipeID: @Model.RecipeData.recipeID,
+            authorID: @ViewBag.SessionAuthor,
+            reviewDateTime: dateTimeNow,
+            reviewRate: $('input[name=score]:checked', '#raiting-stars').val(),
+            reviewText: $('#comment').val()
+        };    
+        var retURL = window.location.href;        
+        var loginURL = "http://localhost:9670/Account/Login?ReturnUrl=%2FRecipe%2FDetailsRecipe%2F" + reviewObj.recipeID;
+        $.ajax({
+            url: '@Url.Action("CreateReviewInDatabase")',
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(reviewObj),
+            success: function (response) {
+                if (response != null) {
+                    if (response.success) {
+                        alert(response.responseText);
+                        location.replace(retURL);
+                    } else {
+                        // incorrect input data from the user
+                        alert(response.responseText);
+                    }                    
+                } else {
+                    // Anonymous user
+                    alert("If you want to add review, please log in!");
+                    location.replace(loginURL);
+                }    
+            },
+            error: function (response) {
+                alert("Error!");
+            }
+        });
+        return false;
+    });
+    /* Every time the window is scrolled ... */
+    $(window).scroll( function(){
+        /* Check the location of each desired element */
+        $('.hideme').each( function(i){
+            var bottom_of_object = $(this).offset().top + $(this).outerHeight();
+            var bottom_of_window = $(window).scrollTop() + $(window).height();
+
+            /* If the object is completely visible in the window, fade it in */
+            if( bottom_of_window > bottom_of_object ){
+                $(this).animate({'opacity':'1'},500);
+            }
+
+        }); 
+    });
+});
+</script>
+

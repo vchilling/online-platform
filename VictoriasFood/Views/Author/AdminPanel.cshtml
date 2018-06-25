@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Admin Panel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="well-sm-2">
+    <div class="container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12">
+                <h2>Admin Panel</h2>  
+                <h3 class="text-primary offset-8 text-bold">From here you can manage all information about Authors, Categories, Subcategories, Recipes, Ingredient lists, Direction lists, Tips and etc.</h3>
+                              
+                <p class="letter-spacing-2"> 
+                    <strong>Lists contain information about every object of corresponding type, leads to detail and edit pages (and delete option).</strong>     
+                    <br/>
+                    @Html.ActionLink("List of Authors", "Index", "Author")
+                    <br />
+                    @Html.ActionLink("List of Categories", "Index", "Category")
+                    <br />
+                    @Html.ActionLink("List of Subcategories", "IndexSubcategory", "Category")
+                    <br />
+                    @Html.ActionLink("List of Suitable for categories", "Index", "SuitableFor")
+                    <br />
+                    @Html.ActionLink("List of Recipes", "Index", "Recipe")
+                </p>
+                <p class="letter-spacing-2">
+                </p>
+                <p class="letter-spacing-2">
+                    <strong>From this links you can create object of corresponding type.</strong>
+                    <br />
+                    @Html.ActionLink("Create Category", "CreateCategory", "Category")
+                    <br />
+                    @Html.ActionLink("Create Subcategory", "CreateSubcategory", "Category")
+                    <br />
+                    @Html.ActionLink("Create Suitable for category", "CreateSuitableFor", "SuitableFor")
+                    <br />
+                    @Html.ActionLink("Create Recipe", "CreateRecipeStep1", "Recipe")
+                </p>
+                <p class="letter-spacing-2">
+                    <strong>Admin user can use all of the functionalities that are allowed for member users.</strong>
+                </p>
+            </div>
+           
+        </div>
+    </div>
+</section>
+<h2></h2>
+

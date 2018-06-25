@@ -1,0 +1,215 @@
+﻿<header class="page-header">
+    <!-- RD Navbar -->
+    <div class="rd-navbar-wrap">
+        <nav class="rd-navbar" data-rd-navbar-lg="rd-navbar-static">
+            <div class="rd-navbar-inner">
+                <!-- RD Navbar Panel -->
+                <div class="rd-navbar-panel">
+                    <!-- RD Navbar Toggle -->
+                    <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar"><span></span></button>
+                    <!-- END RD Navbar Toggle -->
+                    <!-- RD Navbar Brand -->
+                    <div class="rd-navbar-brand">
+                        <span class="brand-name text-white text-bold">@Html.ActionLink("Food", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" }) <span>@Html.ActionLink("recipes", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</span></span>
+                        <span class="brand-slogan text-thin">@Html.ActionLink("Tasty ideas", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</span>
+                    </div>
+                    <!-- END RD Navbar Brand -->
+                </div>
+                <!-- END RD Navbar Panel -->
+                <div class="rd-navbar-nav-wrap">
+                    <!-- RD Navbar Search -->
+                    <div class="rd-navbar-search">                        
+                        @using (Html.BeginForm("SearchRecipes", "Recipe", null, FormMethod.Post, new { @class = "rd-navbar-search-form" }))
+                        {
+                            <label class="rd-navbar-search-form-input">
+                                <input type="text" name="searchInputText" placeholder="Search..." autocomplete="off" />
+                            </label>
+                            <button class="rd-navbar-search-form-submit" type="submit"></button>
+                        }
+                        <span class="rd-navbar-live-search-results"></span>
+                        <button class="rd-navbar-search-toggle" data-rd-navbar-toggle=".rd-navbar-search"></button>
+                    </div>
+                    <!-- END RD Navbar Search -->                
+                    <ul class="rd-navbar-nav">
+                        <li>
+                            @Html.ActionLink("Home", "Index", "Home")
+                        </li>
+                        <li>
+                            @Html.ActionLink("All Categories", "AllCategories", "Category")
+                            <!-- RD Navbar Dropdown -->
+                            <ul class="rd-navbar-dropdown">
+                                <li>
+                                    @Html.ActionLink("Dinner", "AllSubcategories", "Category", new { id = 1 }, null)
+                                    <ul class="rd-navbar-dropdown">
+                                        <li>
+                                            @Html.ActionLink("Main dish", "SubcategoryRecipes", "Recipe", new { id = 1 }, null)
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Pizza", "SubcategoryRecipes", "Recipe", new { id = 2 }, null)
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Salad", "SubcategoryRecipes", "Recipe", new { id = 5 }, null)
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Soup", "SubcategoryRecipes", "Recipe", new { id = 6 }, null)
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Pasta", "SubcategoryRecipes", "Recipe", new { id = 7 }, null)
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("BBQ & Grilling", "SubcategoryRecipes", "Recipe", new { id = 8 }, null)
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Desserts", "AllSubcategories", "Category", new { id = 2 }, null)
+                                    <ul class="rd-navbar-dropdown">
+                                        <li>
+                                            @Html.ActionLink("Cake", "SubcategoryRecipes", "Recipe", new { id = 3 }, null)
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Cookies", "SubcategoryRecipes", "Recipe", new { id = 9 }, null)
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Chocolate Dessert", "SubcategoryRecipes", "Recipe", new { id = 10 }, null)
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Fruit Dessert", "SubcategoryRecipes", "Recipe", new { id = 11 }, null)
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Specialty Dessert", "SubcategoryRecipes", "Recipe", new { id = 12 }, null)
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Breakfast & Brunch", "AllSubcategories", "Category", new { id = 3 }, null)
+                                    <ul class="rd-navbar-dropdown">
+                                        <li>
+                                            @Html.ActionLink("Pancake", "SubcategoryRecipes", "Recipe", new { id = 4 }, null)
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Seafood & Fish", "SubcategoryRecipes", "Recipe", new { id = 13 }, null)
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Breakfast Bread", "SubcategoryRecipes", "Recipe", new { id = 14 }, null)
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Breakfast Egg", "SubcategoryRecipes", "Recipe", new { id = 15 }, null)
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("French Toast", "SubcategoryRecipes", "Recipe", new { id = 16 }, null)
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Appetizers & Snack", "AllSubcategories", "Category", new { id = 4 }, null)
+                                    <ul class="rd-navbar-dropdown">
+                                        <li>
+                                            @Html.ActionLink("Dips & Spreads", "SubcategoryRecipes", "Recipe", new { id = 17 }, null)
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Cheese Appetizer", "SubcategoryRecipes", "Recipe", new { id = 19 }, null)
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Meat & Poultry", "SubcategoryRecipes", "Recipe", new { id = 21 }, null)
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Snack", "SubcategoryRecipes", "Recipe", new { id = 22 }, null)
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Seafood", "SubcategoryRecipes", "Recipe", new { id = 23 }, null)
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Drinks", "AllSubcategories", "Category", new { id = 5 }, null)
+                                    <ul class="rd-navbar-dropdown">
+                                        <li>
+                                            @Html.ActionLink("Coffee Drinks", "SubcategoryRecipes", "Recipe", new { id = 24 }, null)
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Tea Drinks", "SubcategoryRecipes", "Recipe", new { id = 25 }, null)
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Shakes & Floats", "SubcategoryRecipes", "Recipe", new { id = 26 }, null)
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Smoothie", "SubcategoryRecipes", "Recipe", new { id = 27 }, null)
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Cocktail", "SubcategoryRecipes", "Recipe", new { id = 28 }, null)
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <!-- END RD Navbar Dropdown -->
+                        </li>
+                        <li>
+                            @Html.ActionLink("Suitable For", "AllSuitableForCategories", "SuitableFor")
+                            <!-- RD Navbar Dropdown -->
+                            <ul class="rd-navbar-dropdown">
+                                <li>
+                                    @Html.ActionLink("Vegetarian diet", "SuitableForRecipes", "Recipe", new { id = 1 }, null)
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Diabetic diet", "SuitableForRecipes", "Recipe", new { id = 2 }, null)
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Vegan	diet", "SuitableForRecipes", "Recipe", new { id = 3 }, null)
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Gluten-free diet", "SuitableForRecipes", "Recipe", new { id = 4 }, null)
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Low-fat diet", "SuitableForRecipes", "Recipe", new { id = 5 }, null)
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Cholesterol-friendly diet", "SuitableForRecipes", "Recipe", new { id = 6 }, null)
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Egg-free diet", "SuitableForRecipes", "Recipe", new { id = 7 }, null)
+                                </li>
+                            </ul>
+                            <!-- END RD Navbar Dropdown -->
+                        </li>
+                        <li>
+                            @Html.ActionLink("About", "About", "Home")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Contact", "Contact", "Home")
+                        </li>
+                        <li>                
+                            @Html.ActionLink("My Profile", "DetailsAuthor", "Author", new { id = (int)Session["AuthorID"] }, null) 
+                            <!-- RD Navbar Dropdown -->
+                            <ul class="rd-navbar-dropdown">                                
+                                <li>
+                                    @Html.ActionLink("Add recipe", "CreateRecipeStep1", "Recipe")
+                                </li>
+                                <li>                                   
+                                    @Html.ActionLink("My recipes", "RecipesByAuthor", "Recipe", new { id = (int)Session["AuthorID"] }, null)
+                                </li>
+                                <li>                                                          
+                                    @Html.ActionLink("Favourites", "FavouriteRecipes", "Recipe", new { id = (int)Session["AuthorID"] }, null)
+                                </li>
+                                <li> 
+                                    @using Microsoft.AspNet.Identity
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                                        {
+                                            @Html.AntiForgeryToken()                                          
+                                            <a href="javascript:document.getElementById('logoutForm').submit()">Sign out</a>
+                                        }
+                                    }
+                                </li>                              
+                            </ul>
+                            <!-- END RD Navbar Dropdown -->
+                        </li>
+                    </ul>   
+                    <!-- END RD Navbar Nav -->
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- END RD Navbar -->
+</header>

@@ -1,0 +1,38 @@
+﻿@model VictoriasFood.Models.SuitableFor
+@{
+    ViewBag.Title = "Details of Suitable For";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="well-sm-2">
+    <div class="container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12">
+                <h2>Details of Suitable For</h2>
+                <div class="wrapper-edit-button">
+                    @Html.ActionLink("Edit suitable for", "EditSuitableFor", "SuitableFor", new { id = Model.suitableForID }, new { @class = "btn btn-xs btn-primary" })
+                    @Html.ActionLink("Delete suitable for", "DeleteSuitableFor", "SuitableFor",
+                            new { confirm = true, id = Model.suitableForID },
+                            new { onclick = "return confirm('Do you really want to delete this suitable for category permanently?')", @class = "btn btn-xs btn-primary" })
+                    <div class="message-required-fields" style="margin-top: 20px;">
+                        <p>After suitable for category be deleted, it will be removed also from details of recipes that are connected to it.</p>
+                    </div>
+                </div>
+                <table class="table-bordered">
+                    <tr class="table-row">
+                        <th>The Title of the Suitable for category</th>
+                        <td>
+                            @Model.suitableForTitle
+                        </td>
+                    </tr>
+                    <tr class="table-row">
+                        <th>The Description of the Suitable for category </th>
+                        <td>
+                            @Model.suitableForDescription
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+

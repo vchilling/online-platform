@@ -1,0 +1,46 @@
+﻿@model VictoriasFood.Models.DirectionLine
+@{
+    ViewBag.Title = "Edit Recipe - Step 3";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="well-sm-8">
+    <div class="container recipe-container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12 edit-recipe-body">
+                @using (Html.BeginForm("UpdateDirectionLineInDatabase", "Direction"))
+                {
+                    <h4 class="text-primary">Edit recipe - Step 3</h4>
+                    <div class="message-required-fields"><p>* Required Fields</p></div>
+                    <div class="edit-recipe-step">
+                        <p class="text-primary">Directions:</p>
+                        <div class="edit-recipe-ingredients">
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th>@Html.LabelFor(m => m.directionLineText)</th>
+                                        <th>@Html.LabelFor(m => m.directionLineDescription)</th>
+                                    </tr>
+                                    <tr>
+
+                                        <td>@Html.TextBoxFor(m => m.directionLineText)</td>
+                                        <td>@Html.TextBoxFor(m => m.directionLineDescription)</td>
+
+                                        <!-- remove -->
+                                    </tr>
+                                </table>
+                                <!-- addnew-->
+                            </div>
+                            <div>
+                                @Html.HiddenFor(m => m.directionLineID)
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-sm btn-primary save-edit"> Save </button>
+                                @Html.ActionLink("Back", "EditRecipeStep3", "Direction", new { id = @Model.directionID }, new { @class = "button btn btn-sm btn-default-2" })
+                            </div>
+                        </div>                        
+                    </div>                   
+                }
+            </div>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,38 @@
+﻿@model VictoriasFood.ViewModels.RecipeTip
+@{
+    ViewBag.Title = "Add Tip";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="well-sm-8">
+    <div class="container recipe-container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12 edit-recipe-body">
+                @using (Html.BeginForm("CreateTipForNewRecipeInDatabase", "Tip"))
+                {
+                    <h4 class="text-primary">Add tip to the recipe</h4>
+                    <div class="message-required-fields"><p>* Required Fields</p></div>
+                    <div class="edit-recipe-step">
+                        <p class="text-primary">Tip:</p>
+                        <div class="edit-recipe-ingredients">
+                            <div>
+                                @Html.LabelFor(m => Model.TipData.tipTitle) *
+                                @Html.TextBoxFor(m => Model.TipData.tipTitle, new { placeholder = "Type here" })
+                            </div>
+                            <div>
+                                @Html.LabelFor(m => Model.TipData.tipDescription) *
+                                @Html.TextBoxFor(m => Model.TipData.tipDescription, new { placeholder = "Type here" })
+                            </div>
+                            <div>
+                                @Html.HiddenFor(m => m.RecipeID)
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-sm btn-primary save-edit"> Save </button>
+                                @Html.ActionLink("Back", "CreateRecipeStep4", "Recipe", new { id = Model.RecipeID }, new { @class = "button btn btn-sm btn-default-2" })
+                            </div>
+                        </div>
+                    </div>                   
+                }
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<VictoriasFood.Models.Author>
+@{
+    ViewBag.Title = "Index - Authors";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="well-sm-2">
+    <div class="container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12">
+                <h2>List - Index of Authors</h2>
+                @if (!Model.Any())
+                {
+                    <p> We don't have any Author yet.</p>
+                }
+                else
+                {
+                    <table class="table-bordered">
+                        <thead>
+                            <tr class="table-row table-header">
+                                <th>Author's name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var author in Model)
+                            {
+                                <tr class="table-row">
+                                    <td>
+                                        @Html.ActionLink(author.authorFirstName + ' ' + author.authorLastName, "DetailsAuthor", "Author", new { id = author.authorID }, null)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+

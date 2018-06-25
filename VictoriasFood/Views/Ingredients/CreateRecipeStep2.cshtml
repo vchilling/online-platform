@@ -1,0 +1,56 @@
+﻿@model VictoriasFood.ViewModels.RecipeIEIngredientsViewModel
+@{
+    ViewBag.Title = "Create Recipe Step 2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="well-sm-8">
+    <div class="container recipe-container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12 edit-recipe-body">               
+                <h4 class="text-primary">Create recipe - Step 2</h4>
+                <div class="edit-recipe-step">
+                    <p class="text-primary">Ingredients:</p>
+                    <p style="margin-top: 0;">
+                        <span>Creat at least one ingredients list!</span>
+                        <span><br></span>
+                        <span>If recipe has more than one list of ingredients make another one.</span>
+                    </p>
+                    @if (Model.IngredientsData.Any())
+                    {
+                        <div>
+                            <div>
+                                @foreach (var ingredients in Model.IngredientsData)
+                                {
+                                <p>
+                                    Ingredients List @ingredients.ingredientsCategoryTitle
+                                    @* @Html.ActionLink(("Edit ingredients list " + @ingredients.ingredientsCategoryTitle.ToString()), "EditRecipeStep2", "Ingredients", new { id = ingredients.ingredientsID }, null)
+
+                                    *@
+                                </p>
+                                }
+                            </div>
+                        </div>
+                    }
+                    <div class="edit-recipe-ingredients">
+                        <div>
+                            @Html.ActionLink("Add Ingredient List", "CreateIngredientsList", "Ingredients", new { id = Model.RecipeID }, new { @class = "button btn btn-sm btn-default-2" })
+                            @if (Model.IngredientsData.Any())
+                            {
+                                @Html.ActionLink("Next step", "CreateRecipeStep3", "Direction", new { id = Model.RecipeID }, new { @class = "button btn btn-sm btn-default-2" })
+                            }
+                        </div>
+                    </div>
+                </div>
+               
+                <table>
+                    <tr>
+                        <td>
+                            <div class="mfControls">
+                            </div> 
+                        </td>
+                    </tr>
+                </table>
+           </div>
+        </div>
+    </div>
+</section>

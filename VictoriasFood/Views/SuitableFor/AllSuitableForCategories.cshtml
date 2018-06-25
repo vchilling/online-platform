@@ -1,0 +1,27 @@
+﻿@{@model IEnumerable<VictoriasFood.Models.SuitableFor>
+    ViewBag.Title = "All Suitable For Categories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="well-md-2 bg-default-4">
+    <div class="container text-center text-sm-left">
+        <h2>All suitable for categories</h2>
+        <div class="row isotope"
+             data-isotope-group="gallery"
+             data-isotope-layout="fitRows"
+             data-lightbox="gallery">
+            @foreach (var sutableFor in Model)
+            {
+                <div class="col-md-4 col-sm-4" data-filter="type-1">
+                    <div class="isotope_ctn bg-white">
+                        <h6 class="text-bold text-primary">
+                            @Html.ActionLink(sutableFor.suitableForTitle, "SuitableForRecipes", "Recipe", new { id = sutableFor.suitableForID }, null)
+                        </h6>
+                        <p>
+                            @sutableFor.suitableForDescription
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

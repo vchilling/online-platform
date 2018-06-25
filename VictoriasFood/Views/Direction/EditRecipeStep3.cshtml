@@ -1,0 +1,62 @@
+﻿@model VictoriasFood.ViewModels.DirectionIEDirectionLine
+@{
+    ViewBag.Title = "Edit Recipe Step 3";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="well-sm-8">
+    <div class="container recipe-container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12 edit-recipe-body">
+                @using (Html.BeginForm("UpdateDirectionInDatabase", "Direction"))
+                {
+                    <h4 class="text-primary">Edit recipe - Step 3</h4>
+                    <div class="message-required-fields"><p>* Required Fields</p></div>
+                    <div class="edit-recipe-step">
+                        <p class="text-primary">Directions:</p>
+                        <div class="edit-recipe-ingredients">
+                            <div>
+                                @Html.LabelFor(m => Model.DirectionData.directionTitle)
+                                @Html.TextBoxFor(m => Model.DirectionData.directionTitle)
+                            </div>
+                            <div>
+                                @Html.LabelFor(m => Model.DirectionData.directionDescription)
+                                @Html.TextBoxFor(m => Model.DirectionData.directionDescription)
+                            </div>
+                            @{var countDirectionLines = 0;}                                
+                            @foreach (var directionLine in Model.DirectionLineData)
+                            {
+                            countDirectionLines++;                           
+                            <div class="directionline-information">
+                                <strong> @countDirectionLines step:</strong>
+                                <br/>
+                                <span> @Html.LabelFor(m => m.DirectionLineData.First().directionLineDescription): </span>
+                                @directionLine.directionLineDescription                                          
+                                <br/>
+                                <span>@Html.LabelFor(m => m.DirectionLineData.First().directionLineText):*</span>
+                                @directionLine.directionLineText
+                                           
+                            </div>
+                            <div class="directionline-edit-delete">
+                                @Html.ActionLink("Edit", "EditRecipeStep3DirectionLine", "Direction", new { id = directionLine.directionLineID }, new { @class = "btn btn-xs btn-primary" })
+                                @Html.ActionLink("Delete", "DeleteDirectionLine", "Direction",
+                                new { confirm = true, id = directionLine.directionLineID },
+                                new { onclick = "return confirm('Do you really want to delete this direction line?')", @class = "btn btn-xs btn-primary" })
+                            </div>
+                            } 
+                            <div style="text-align:right;">
+                                @Html.ActionLink("Add next step", "EditRecipeStep3AddDirectionLine", "Direction", new { id = Model.DirectionData.directionID }, new { @class = "button btn btn-sm btn-default-2" })
+                            </div>
+                                                
+                            <div>
+                                @Html.HiddenFor(m => m.DirectionData.directionID)
+                                @Html.AntiForgeryToken()                               
+                                <button type="submit" class="btn btn-sm btn-primary save-edit"> Save </button>
+                                @Html.ActionLink("Back", "EditRecipeStep1", "Recipe", new { id = Model.DirectionData.recipeID }, new { @class = "button btn btn-sm btn-default-2" })
+                            </div>
+                        </div>
+                    </div>                   
+                }
+            </div>
+        </div>
+</section>

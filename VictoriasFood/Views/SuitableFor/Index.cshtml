@@ -1,0 +1,42 @@
+﻿@model IEnumerable<VictoriasFood.Models.SuitableFor>
+@{
+    ViewBag.Title = "List of Suitable for categories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="well-sm-2">
+    <div class="container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12">
+                <h2>List of Suitable for categories</h2>
+                @if (!Model.Any())
+                {
+                    <p> We don't have any Suitable for categories yet.</p>
+                }
+                else
+                {
+                    <table class="table-bordered">
+                        <thead>
+                            <tr class="table-row table-header">
+                                <th>The Description of the Suitable for</th>
+                                <th>The Details of the Suitable for</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var suitableFor in Model)
+                            {
+                                <tr class="table-row">
+                                    <td>
+                                        @Html.ActionLink(suitableFor.suitableForTitle, "DetailsSuitableFor", "SuitableFor", new { id = suitableFor.suitableForID }, null)
+                                    </td>
+                                    <td>
+                                        @suitableFor.suitableForDescription
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</section>

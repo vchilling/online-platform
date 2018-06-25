@@ -1,0 +1,77 @@
+﻿@model VictoriasFood.ViewModels.SuitableForIERecipe
+
+@{
+    ViewBag.Title = "Recipes by suitable for category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}<!-- Carousel 1-->
+<section class="well-sm-4 text-center text-md-left">
+    <div class="container">
+        <h2>@Model.SuitableForData.suitableForTitle recipes</h2>
+        <p>@Model.SuitableForData.suitableForDescription</p>
+        @if (!Model.RecipeData.Any())
+        {
+            <p> We don't have any recipes in this suitable for category yet.</p>
+        }
+        else
+        {
+            if (Model.RecipeData.Count() > 3)
+            {            
+            <div class="owl-carousel owl-carousel-1" data-items="1" data-loop="true" data-dots="true">
+                @foreach (var group in Model.RecipeData.Select((x, index) => new { element = x, index }).GroupBy(x => x.index / 3, x => x.element))
+                {
+                    <!-- owl-item -->
+                    <div class="owl-item">
+                        <div class="row text-center text-md-left">
+                            @foreach (var recipe in group)
+                            {
+                            <!-- recipe-item -->
+                            <div class="col-md-4">
+                                <img width="370" height="270" alt="@recipe.recipeTitle" src="@recipe.recipeImage">
+                                <div class="owl-ctn bg-default-7">
+                                    <h6 class="text-bold text-primary">
+                                        @Html.ActionLink(@recipe.recipeTitle, "DetailsRecipe", "Recipe", new { id = recipe.recipeID }, null)
+                                    </h6>
+                                    <p>
+                                        @recipe.recipeDescription
+                                    </p>
+                                    @Html.ActionLink("View recipe", "DetailsRecipe", "Recipe", new { id = recipe.recipeID }, new { @class = "btn btn-xs btn-default-2" })
+                                </div>
+                            </div>
+                            <!-- recipe-item -->
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+            }
+            else
+            {
+            <!-- static layout for three or less recipes -->
+            <div class="static-recipe-wrapper">
+                <div class="owl-item">
+                    <div class="row text-center text-md-left">
+                        @foreach (var recipe in Model.RecipeData)
+                        {
+                        <!-- recipe-item -->
+                        <div class="col-md-4">
+                            <img width="370" height="270" alt="@recipe.recipeTitle" src="@recipe.recipeImage">
+                            <div class="owl-ctn bg-default-7">
+                                <h6 class="text-bold text-primary">
+                                    @Html.ActionLink(@recipe.recipeTitle, "DetailsRecipe", "Recipe", new { id = recipe.recipeID }, null)
+                                </h6>
+                                <p>
+                                    @recipe.recipeDescription
+                                </p>
+                                @Html.ActionLink("View recipe", "DetailsRecipe", "Recipe", new { id = recipe.recipeID }, new { @class = "btn btn-xs btn-default-2" })
+                            </div>
+                        </div>
+                        <!-- end recipe-item -->
+                        }
+                    </div>
+                </div>
+            </div>                
+            }            
+        }
+    </div>
+</section>
+<!-- END Carousel 1 -->

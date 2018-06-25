@@ -1,0 +1,94 @@
+﻿@model IEnumerable<VictoriasFood.Models.Recipe>
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="well-sm-2">
+    <div class="container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12">
+                <h2>Search result</h2>
+                <!-- RD Navbar Search -->
+                @using (Html.BeginForm("SearchRecipes", "Recipe"))
+                {
+                <div class="rd-navbar-search rd-navbar-search1">
+                    <label class="rd-navbar-search-form-input">
+                        <input type="text" name="searchInputText" id="searchInputText" placeholder="Search recipes" autocomplete="off" />
+                    </label>
+
+                    <button type="submit" class="rd-navbar-search-form-submit" id="search-submit"></button>
+                    <span class="rd-navbar-live-search-results"></span>
+                    <button type="submit" class="rd-navbar-search-toggle" data-rd-navbar-toggle=".rd-navbar-search"></button>
+                </div>
+                <!-- END RD Navbar Search -->
+                }
+                @if (!Model.Any())
+                {
+                    <p>Sorry, no recipe matched your search... Please try again.</p>                   
+                }
+                else
+                {
+                    if (Model.Count() > 3)
+                    {
+                        <div class="owl-carousel owl-carousel-1" data-items="1" data-loop="true" data-dots="true">
+                            @foreach (var group in Model.Select((x, index) => new { element = x, index }).GroupBy(x => x.index / 3, x => x.element))
+                            {
+                    <!-- owl-item -->
+                                <div class="owl-item">
+                                    <div class="row text-center text-md-left">
+                                        @foreach (var recipe in group)
+                                        {
+                            <!-- recipe-item -->
+                                            <div class="col-md-4">
+                                                <img width="370" height="270" alt="@recipe.recipeTitle" src="@recipe.recipeImage">
+                                                <div class="owl-ctn bg-default-7">
+                                                    <h6 class="text-bold text-primary">
+                                                        @Html.ActionLink(@recipe.recipeTitle, "DetailsRecipe", "Recipe", new { id = recipe.recipeID }, null)
+                                                    </h6>
+                                                    <p>
+                                                        @recipe.recipeDescription
+                                                    </p>
+                                                    @Html.ActionLink("View recipe", "DetailsRecipe", "Recipe", new { id = recipe.recipeID }, new { @class = "btn btn-xs btn-default-2" })
+                                                </div>
+                                            </div>
+                            <!-- recipe-item -->
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+            <!-- static layout for three or less recipes -->
+                        <div class="static-recipe-wrapper">
+                            <div class="owl-item">
+                                <div class="row text-center text-md-left">
+                                    @foreach (var recipe in Model)
+                                    {
+                        <!-- recipe-item -->
+                                        <div class="col-md-4">
+                                            <img width="370" height="270" alt="@recipe.recipeTitle" src="@recipe.recipeImage">
+                                            <div class="owl-ctn bg-default-7">
+                                                <h6 class="text-bold text-primary">
+                                                    @Html.ActionLink(@recipe.recipeTitle, "DetailsRecipe", "Recipe", new { id = recipe.recipeID }, null)
+                                                </h6>
+                                                <p>
+                                                    @recipe.recipeDescription
+                                                </p>
+                                                @Html.ActionLink("View recipe", "DetailsRecipe", "Recipe", new { id = recipe.recipeID }, new { @class = "btn btn-xs btn-default-2" })
+                                            </div>
+                                        </div>
+                        <!-- end recipe-item -->
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>
+

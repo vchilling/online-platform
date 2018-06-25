@@ -1,0 +1,56 @@
+﻿@model VictoriasFood.Models.SuitableFor
+@{
+    ViewBag.Title = "EditSuitableFor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="well-sm-2">
+    <div class="container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12">
+                <h2>Edit Suitable For</h2>
+
+                @using (Html.BeginForm("UpdateSuitableForInDatabase", "SuitableFor"))
+                {
+                    <div class="edit-form-group">
+                        <table>
+                            <tr>
+                                <th>
+                                    @Html.LabelFor(m => m.suitableForTitle)
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(m => m.suitableForTitle)
+                                    @Html.ValidationMessageFor(m => m.suitableForTitle)
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table>
+                            <tr>
+                                <th>
+                                    @Html.LabelFor(m => m.suitableForDescription)
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(m => m.suitableForDescription)
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <table>
+                        <tr>
+                            <td>
+                                @Html.HiddenFor(m => m.suitableForID)
+                                @Html.AntiForgeryToken()
+                                <div class="mfControls ">
+                                    <button type="submit" class="btn btn-sm btn-primary save-edit"> Save </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+

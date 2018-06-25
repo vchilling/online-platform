@@ -44,6 +44,34 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.2.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.2.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.2.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.2.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.2.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -168,27 +196,218 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AuthorController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\DirectionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IngredientsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RecipeController.cs" />
+    <Compile Include="Controllers\SuitableForController.cs" />
+    <Compile Include="Controllers\TipController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704271002481_CategoryAndSubcategoryTables.cs" />
+    <Compile Include="Migrations\201704271002481_CategoryAndSubcategoryTables.Designer.cs">
+      <DependentUpon>201704271002481_CategoryAndSubcategoryTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704301044179_AuthorAndRecipe.cs" />
+    <Compile Include="Migrations\201704301044179_AuthorAndRecipe.Designer.cs">
+      <DependentUpon>201704301044179_AuthorAndRecipe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704301048230_AuthorAndRecipeTables.cs" />
+    <Compile Include="Migrations\201704301048230_AuthorAndRecipeTables.Designer.cs">
+      <DependentUpon>201704301048230_AuthorAndRecipeTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704301215012_SuitableForTable.cs" />
+    <Compile Include="Migrations\201704301215012_SuitableForTable.Designer.cs">
+      <DependentUpon>201704301215012_SuitableForTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704301223218_RecipeSuitableForTable.cs" />
+    <Compile Include="Migrations\201704301223218_RecipeSuitableForTable.Designer.cs">
+      <DependentUpon>201704301223218_RecipeSuitableForTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704301227262_RecipeSuitableForTableUpdate.cs" />
+    <Compile Include="Migrations\201704301227262_RecipeSuitableForTableUpdate.Designer.cs">
+      <DependentUpon>201704301227262_RecipeSuitableForTableUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705021956415_IngedientsTables.cs" />
+    <Compile Include="Migrations\201705021956415_IngedientsTables.Designer.cs">
+      <DependentUpon>201705021956415_IngedientsTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705030942220_DirectionDirectionLineAndTip.cs" />
+    <Compile Include="Migrations\201705030942220_DirectionDirectionLineAndTip.Designer.cs">
+      <DependentUpon>201705030942220_DirectionDirectionLineAndTip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705081306429_ReviewAndFavourites.cs" />
+    <Compile Include="Migrations\201705081306429_ReviewAndFavourites.Designer.cs">
+      <DependentUpon>201705081306429_ReviewAndFavourites.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705100951349_DirectionListTableUpdate.cs" />
+    <Compile Include="Migrations\201705100951349_DirectionListTableUpdate.Designer.cs">
+      <DependentUpon>201705100951349_DirectionListTableUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705101551277_ReviewTableDataUpdate.cs" />
+    <Compile Include="Migrations\201705101551277_ReviewTableDataUpdate.Designer.cs">
+      <DependentUpon>201705101551277_ReviewTableDataUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705190839183_SeedUsers.cs" />
+    <Compile Include="Migrations\201705190839183_SeedUsers.Designer.cs">
+      <DependentUpon>201705190839183_SeedUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705260952544_UpdateAuthor.cs" />
+    <Compile Include="Migrations\201705260952544_UpdateAuthor.Designer.cs">
+      <DependentUpon>201705260952544_UpdateAuthor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706272037131_DataUpdate.cs" />
+    <Compile Include="Migrations\201706272037131_DataUpdate.Designer.cs">
+      <DependentUpon>201706272037131_DataUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Author.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\ContactMailModel.cs" />
+    <Compile Include="Models\DirectionLine.cs" />
+    <Compile Include="Models\Direction.cs" />
+    <Compile Include="Models\Favourite.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IngredientLine.cs" />
+    <Compile Include="Models\Ingredients.cs" />
+    <Compile Include="Models\IngredientsIngredientLine.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Recipe.cs" />
+    <Compile Include="Models\RecipeIngredients.cs" />
+    <Compile Include="Models\RecipeSuitableFor.cs" />
+    <Compile Include="Models\Review.cs" />
+    <Compile Include="Models\SessionAuthorizeAttribute.cs" />
+    <Compile Include="Models\Subcategory.cs" />
+    <Compile Include="Models\SuitableFor.cs" />
+    <Compile Include="Models\Tip.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\AuthorIERecipes.cs" />
+    <Compile Include="ViewModels\CategoryIESubcategory.cs" />
+    <Compile Include="ViewModels\CategorySubcategory.cs" />
+    <Compile Include="ViewModels\DirectionDirectionLine.cs" />
+    <Compile Include="ViewModels\DirectionIEDirectionLine.cs" />
+    <Compile Include="ViewModels\HomeNavigationViewModel.cs" />
+    <Compile Include="ViewModels\IngredientLineIngredientsID.cs" />
+    <Compile Include="ViewModels\IngredientLineIngredientsIDRecipeID.cs" />
+    <Compile Include="ViewModels\IngredientsIEIngredientLine.cs" />
+    <Compile Include="ViewModels\IngredientsRecipeIDIEIngredientLineID.cs" />
+    <Compile Include="ViewModels\RecipeAllInformation.cs" />
+    <Compile Include="ViewModels\RecipeIEIngredientsViewModel.cs" />
+    <Compile Include="ViewModels\RecipeIESubcategories.cs" />
+    <Compile Include="ViewModels\RecipeIESuitableForCategories.cs" />
+    <Compile Include="ViewModels\RecipeIngredientsViewModel.cs" />
+    <Compile Include="ViewModels\RecipeTip.cs" />
+    <Compile Include="ViewModels\RecipeTipIESuitableFor.cs" />
+    <Compile Include="ViewModels\SubcategoryIECategories.cs" />
+    <Compile Include="ViewModels\SubcategoryRecipes.cs" />
+    <Compile Include="ViewModels\SuitableForIERecipe.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\datatables\dataTables.bootstrap.css" />
+    <Content Include="Content\css\datatables\dataTables.bootstrap.min.css" />
+    <Content Include="Content\css\datatables\dataTables.bootstrap4.css" />
+    <Content Include="Content\css\datatables\dataTables.bootstrap4.min.css" />
+    <Content Include="Content\css\datatables\dataTables.foundation.css" />
+    <Content Include="Content\css\datatables\dataTables.foundation.min.css" />
+    <Content Include="Content\css\datatables\dataTables.jqueryui.css" />
+    <Content Include="Content\css\datatables\dataTables.jqueryui.min.css" />
+    <Content Include="Content\css\datatables\dataTables.material.css" />
+    <Content Include="Content\css\datatables\dataTables.material.min.css" />
+    <Content Include="Content\css\datatables\dataTables.semanticui.css" />
+    <Content Include="Content\css\datatables\dataTables.semanticui.min.css" />
+    <Content Include="Content\css\datatables\dataTables.uikit.css" />
+    <Content Include="Content\css\datatables\dataTables.uikit.min.css" />
+    <Content Include="Content\css\datatables\jquery.dataTables.css" />
+    <Content Include="Content\css\datatables\jquery.dataTables.min.css" />
+    <Content Include="Content\css\datatables\jquery.dataTables_themeroller.css" />
+    <Content Include="Content\css\restaurant.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\css\thin.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\fonts\Restaurant-Regular.svg" />
+    <Content Include="Content\fonts\Thin-Regular.svg" />
+    <Content Include="Content\images\arrow-next.png" />
+    <Content Include="Content\images\arrow-prev.png" />
+    <Content Include="Content\images\arrow1.png" />
+    <Content Include="Content\images\arrow2.png" />
+    <Content Include="Content\images\arrow3.png" />
+    <Content Include="Content\images\authoricon.png" />
+    <Content Include="Content\images\donut.png" />
+    <Content Include="Content\images\favicon.png" />
+    <Content Include="Content\images\favourite-icon-checked.png" />
+    <Content Include="Content\images\gmap_marker.png" />
+    <Content Include="Content\images\gmap_marker_active.png" />
+    <Content Include="Content\images\lg_page-1_img02.jpg" />
+    <Content Include="Content\images\lg_page-1_img03.jpg" />
+    <Content Include="Content\images\lg_page-1_img04.jpg" />
+    <Content Include="Content\images\lg_page-1_img05.jpg" />
+    <Content Include="Content\images\lg_page-1_img06.jpg" />
+    <Content Include="Content\images\lg_page-1_img07.jpg" />
+    <Content Include="Content\images\md_page-1_img02.jpg" />
+    <Content Include="Content\images\md_page-1_img03.jpg" />
+    <Content Include="Content\images\md_page-1_img04.jpg" />
+    <Content Include="Content\images\md_page-1_img05.jpg" />
+    <Content Include="Content\images\md_page-1_img06.jpg" />
+    <Content Include="Content\images\md_page-1_img07.jpg" />
+    <Content Include="Content\images\page-1_img01.jpg" />
+    <Content Include="Content\images\page-1_img08.jpg" />
+    <Content Include="Content\images\page-2_img04.jpg" />
+    <Content Include="Content\images\page-2_img05.jpg" />
+    <Content Include="Content\images\readyinicon.png" />
+    <Content Include="Content\images\servingsicon.png" />
+    <Content Include="Content\images\suitableforicon.png" />
+    <Content Include="Content\images\favourite-icon.png" />
+    <Content Include="Content\uploads\recipes\15977219_10154899006024812_7318568405584431214_n.jpg" />
+    <Content Include="Content\uploads\recipes\3359675.jpg" />
+    <Content Include="Content\uploads\recipes\salted-caramel-brownies.jpg" />
+    <Content Include="Content\uploads\recipes\slochaenosnemisla.png" />
+    <Content Include="Content\uploads\recipes\thassos - giola beach.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\Restaurant-Regular.eot" />
+    <Content Include="Content\fonts\Restaurant-Regular.ttf" />
+    <Content Include="Content\fonts\Restaurant-Regular.woff" />
+    <Content Include="Content\fonts\Thin-Regular.eot" />
+    <Content Include="Content\fonts\Thin-Regular.ttf" />
+    <Content Include="Content\fonts\Thin-Regular.woff" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\datatables\dataTables.bootstrap.js" />
+    <Content Include="Scripts\datatables\dataTables.bootstrap.min.js" />
+    <Content Include="Scripts\datatables\dataTables.bootstrap4.js" />
+    <Content Include="Scripts\datatables\dataTables.bootstrap4.min.js" />
+    <Content Include="Scripts\datatables\dataTables.foundation.js" />
+    <Content Include="Scripts\datatables\dataTables.foundation.min.js" />
+    <Content Include="Scripts\datatables\dataTables.jqueryui.js" />
+    <Content Include="Scripts\datatables\dataTables.jqueryui.min.js" />
+    <Content Include="Scripts\datatables\dataTables.material.js" />
+    <Content Include="Scripts\datatables\dataTables.material.min.js" />
+    <Content Include="Scripts\datatables\dataTables.semanticui.js" />
+    <Content Include="Scripts\datatables\dataTables.semanticui.min.js" />
+    <Content Include="Scripts\datatables\dataTables.uikit.js" />
+    <Content Include="Scripts\datatables\dataTables.uikit.min.js" />
+    <Content Include="Scripts\datatables\jquery.dataTables.js" />
+    <Content Include="Scripts\datatables\jquery.dataTables.min.js" />
+    <Content Include="Scripts\datatables\jquery.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -196,11 +415,16 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\core.min.js" />
+    <Content Include="Scripts\js\html5shiv.min.js" />
+    <Content Include="Scripts\js\script.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -234,6 +458,62 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Category\DetailsCategory.cshtml" />
+    <Content Include="Views\Category\EditCategory.cshtml" />
+    <Content Include="Views\Category\CreateCategory.cshtml" />
+    <Content Include="Views\Category\IndexSubcategory.cshtml" />
+    <Content Include="Views\Category\DetailsSubcategory.cshtml" />
+    <Content Include="Views\Category\EditSubcategory.cshtml" />
+    <Content Include="Views\Category\CreateSubcategory.cshtml" />
+    <Content Include="Views\Author\Index.cshtml" />
+    <Content Include="Views\Author\DetailsAuthor.cshtml" />
+    <Content Include="Views\Author\EditAuthor.cshtml" />
+    <Content Include="Views\Author\CreateAuthor.cshtml" />
+    <Content Include="Views\Recipe\Index.cshtml" />
+    <Content Include="Views\Recipe\DetailsRecipe.cshtml" />
+    <Content Include="Views\SuitableFor\Index.cshtml" />
+    <Content Include="Views\SuitableFor\DetailsSuitableFor.cshtml" />
+    <Content Include="Views\SuitableFor\EditSuitableFor.cshtml" />
+    <Content Include="Views\SuitableFor\CreateSuitableFor.cshtml" />
+    <Content Include="Views\Home\PrivacyPolicy.cshtml" />
+    <Content Include="Views\Recipe\EditRecipeStep1.cshtml" />
+    <Content Include="Views\Shared\_HeaderAdmin.cshtml" />
+    <Content Include="Views\Shared\_HeaderGuest.cshtml" />
+    <Content Include="Views\Shared\_HeaderUser.cshtml" />
+    <Content Include="Views\Category\AllCategories.cshtml" />
+    <Content Include="Views\Category\AllSubcategories.cshtml" />
+    <Content Include="Views\Recipe\SubcategoryRecipes.cshtml" />
+    <Content Include="Views\Recipe\AllRecipes.cshtml" />
+    <Content Include="Views\Ingredients\EditRecipeStep2.cshtml" />
+    <Content Include="Views\Direction\EditRecipeStep3.cshtml" />
+    <Content Include="Views\Tip\EditRecipeStep4.cshtml" />
+    <Content Include="Views\Tip\CreateTip.cshtml" />
+    <Content Include="Views\Ingredients\EditRecipeStep2IngredientLine.cshtml" />
+    <Content Include="Views\Direction\EditRecipeStep3DirectionLine.cshtml" />
+    <Content Include="Views\Recipe\CreateRecipeStep1.cshtml" />
+    <Content Include="Views\Ingredients\CreateRecipeStep2.cshtml" />
+    <Content Include="Views\Direction\CreateRecipeStep3.cshtml" />
+    <Content Include="Views\Direction\CreateDirectionLine.cshtml" />
+    <Content Include="Views\SuitableFor\AddRecipeToSuitableFor.cshtml" />
+    <Content Include="Views\SuitableFor\AllSuitableForCategories.cshtml" />
+    <Content Include="Views\Recipe\SuitableForRecipes.cshtml" />
+    <Content Include="Views\Home\_HomePartialGuest.cshtml" />
+    <Content Include="Views\Home\_HomePartialUser.cshtml" />
+    <Content Include="Views\SuitableFor\EditRecipeStep5.cshtml" />
+    <Content Include="Views\Ingredients\CreateIngredientsList.cshtml" />
+    <Content Include="Views\Ingredients\CreateIngredientLine.cshtml" />
+    <Content Include="Views\Recipe\CreateRecipeStep4.cshtml" />
+    <Content Include="Views\Recipe\RecipesByAuthor.cshtml" />
+    <Content Include="Views\Recipe\FavouriteRecipes.cshtml" />
+    <Content Include="Views\Author\AdminPanel.cshtml" />
+    <Content Include="Views\Tip\CreateRecipeEditTip.cshtml" />
+    <Content Include="Views\Tip\CreateRecipeAddTip.cshtml" />
+    <Content Include="Views\SuitableFor\CreateRecipeAddToSuitableFor.cshtml" />
+    <Content Include="Views\SuitableFor\CreateRecipeEditSuitableFor.cshtml" />
+    <Content Include="Views\Direction\EditRecipeStep3AddDirectionLine.cshtml" />
+    <Content Include="Views\Ingredients\EditRecipeStep2AddIngredientLine.cshtml" />
+    <Content Include="Views\Recipe\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -245,6 +525,51 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201704271002481_CategoryAndSubcategoryTables.resx">
+      <DependentUpon>201704271002481_CategoryAndSubcategoryTables.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704301044179_AuthorAndRecipe.resx">
+      <DependentUpon>201704301044179_AuthorAndRecipe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704301048230_AuthorAndRecipeTables.resx">
+      <DependentUpon>201704301048230_AuthorAndRecipeTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704301215012_SuitableForTable.resx">
+      <DependentUpon>201704301215012_SuitableForTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704301223218_RecipeSuitableForTable.resx">
+      <DependentUpon>201704301223218_RecipeSuitableForTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704301227262_RecipeSuitableForTableUpdate.resx">
+      <DependentUpon>201704301227262_RecipeSuitableForTableUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705021956415_IngedientsTables.resx">
+      <DependentUpon>201705021956415_IngedientsTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705030942220_DirectionDirectionLineAndTip.resx">
+      <DependentUpon>201705030942220_DirectionDirectionLineAndTip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705081306429_ReviewAndFavourites.resx">
+      <DependentUpon>201705081306429_ReviewAndFavourites.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705100951349_DirectionListTableUpdate.resx">
+      <DependentUpon>201705100951349_DirectionListTableUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705101551277_ReviewTableDataUpdate.resx">
+      <DependentUpon>201705101551277_ReviewTableDataUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705190839183_SeedUsers.resx">
+      <DependentUpon>201705190839183_SeedUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705260952544_UpdateAuthor.resx">
+      <DependentUpon>201705260952544_UpdateAuthor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706272037131_DataUpdate.resx">
+      <DependentUpon>201706272037131_DataUpdate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

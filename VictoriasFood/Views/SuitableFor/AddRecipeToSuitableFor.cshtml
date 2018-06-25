@@ -1,0 +1,68 @@
+﻿@model VictoriasFood.ViewModels.RecipeIESuitableForCategories
+@{
+    ViewBag.Title = "Add recipe to Suitable for category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="well-sm-8">
+    <div class="container recipe-container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12 edit-recipe-body">
+                <h4 class="text-primary">Edit recipe - Step 5</h4>
+                <div class="edit-recipe-step">
+                    <p class="text-primary">Add recipe to Suitable for category or categories:</p>
+                    <div>
+                        <span class="suitable-for-icon"></span>
+                        <font>You can select one or more</font>
+                    </div>
+                    <div class="edit-recipe-ingredients">
+                        <div id="AllSuitableFor">                              
+                            @foreach (var selectedSF in Model.SuitableForData)
+                            {
+                                <div>                               
+                                    <input type="checkbox" id="@selectedSF.suitableForID" style="-webkit-appearance: checkbox!important;-moz-appearance: checkbox!important; appearance:checkbox!important;" />
+                                    @selectedSF.suitableForTitle
+                                </div>
+                             }
+                          </div>
+                          <div>
+                              @Html.HiddenFor(m => m.RecipeID)
+                              <button id="createBTN" class="btn btn-sm btn-primary save-edit">Create</button>
+                              @Html.ActionLink("Back", "EditRecipeStep1", "Recipe", new { id = Model.RecipeID }, new { @class = "button btn btn-sm btn-default-2" })
+                          </div>
+                     </div>
+                </div>          
+            </div>
+        </div>
+    </div>
+</section>
+<script>  
+$(function () {
+    $('#createBTN').click(function () {
+        var selected = [];
+        selected.push(@Model.RecipeID);
+        $('#AllSuitableFor input:checked').each(function () {
+            selected.push($(this).attr('id'));
+        });
+        var retURL = "http://localhost:9670/Recipe/EditRecipeStep1/" + selected[0];
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("CreateRecipeSuitableForInDatabase", "SuitableFor")',
+            dataType: 'text',
+            data: { ids: selected },
+            success: function (response) {
+                if (response != null) {
+                    location.replace(retURL);
+                }
+                else {
+                    alert("Something went wrong!");
+                }
+            },
+            error: function (response) {
+                alert("Error!");
+            }
+        });
+    });
+});
+</script>
+
+

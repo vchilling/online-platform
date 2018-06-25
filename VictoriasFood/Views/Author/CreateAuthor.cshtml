@@ -1,0 +1,149 @@
+﻿@model VictoriasFood.Models.Author
+@{
+    ViewBag.Title = "Add Author";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="well-sm-2">
+    <div class="container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12">
+                <h2>Add new Author</h2>
+
+                @using (Html.BeginForm("CreateAuthorInDatabase", "Author"))
+                {
+                    <div class="edit-form-group">
+                        <table>
+                            <tr>
+                                <th>
+                                    @Html.LabelFor(m => m.authorFirstName)
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(m => m.authorFirstName, new { placeholder = "Type here" })
+                                    @Html.ValidationMessageFor(m => m.authorFirstName)
+                                </td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <th>
+                                    @Html.LabelFor(m => m.authorSecondName)
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(m => m.authorSecondName, new { placeholder = "Type here" })
+                                    @Html.ValidationMessageFor(m => m.authorSecondName)
+                                </td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <th>
+                                    @Html.LabelFor(m => m.authorLastName)
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(m => m.authorLastName, new { placeholder = "Type here" })
+                                    @Html.ValidationMessageFor(m => m.authorLastName)
+                                </td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <th>
+                                    @Html.LabelFor(m => m.addressLine1)
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(m => m.addressLine1, new { placeholder = "Type here" })
+                                    @Html.ValidationMessageFor(m => m.addressLine1)
+                                </td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <th>
+                                    @Html.LabelFor(m => m.addressLine2)
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(m => m.addressLine2, new { placeholder = "Type here" })
+                                    @Html.ValidationMessageFor(m => m.addressLine2)
+                                </td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <th>
+                                    @Html.LabelFor(m => m.telephoneNumber)
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(m => m.telephoneNumber, new { placeholder = "Type here" })
+                                    @Html.ValidationMessageFor(m => m.telephoneNumber)
+                                </td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <th>
+                                    @Html.LabelFor(m => m.authorCv)
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(m => m.authorCv, new { placeholder = "Type here" })
+                                </td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <th>
+                                    @Html.LabelFor(m => m.facebook)
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(m => m.facebook, new { placeholder = "Type here" })
+                                </td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <th>
+                                    @Html.LabelFor(m => m.twitter)
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(m => m.twitter, new { placeholder = "Type here" })
+                                </td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <th>
+                                    @Html.LabelFor(m => m.instagram)
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(m => m.instagram, new { placeholder = "Type here" })
+                                </td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <th>
+                                    @Html.LabelFor(m => m.website)
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(m => m.website, new { placeholder = "Type here" })
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.HiddenFor(m => m.email)
+                                @Html.AntiForgeryToken()
+                                <div class="mfControls ">
+                                    <button type="submit" class="btn btn-sm btn-primary save-edit">Save</button>
+                                </div>
+                            </th>
+                        </tr>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,56 @@
+﻿@model VictoriasFood.ViewModels.DirectionDirectionLine
+@{
+    ViewBag.Title = "Create Direction Line";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="well-sm-8">
+    <div class="container recipe-container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12 edit-recipe-body">
+                @using (Html.BeginForm("CreateDirectionLineForExistingRecipeInDatabase", "Direction"))
+                {
+                    <h4 class="text-primary">Create Ingredient Line</h4>
+                    <div class="message-required-fields"><p>* Required Fields</p></div>
+                    <div class="edit-recipe-step">
+                        <p class="text-primary">Direction:</p>
+                        <div class="edit-recipe-direction">
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th>@Html.LabelFor(m => m.DirectionLineData.directionLineText) *</th>
+                                        <th>
+                                            @Html.LabelFor(m => m.DirectionLineData.directionLineDescription)
+                                        @Html.ValidationMessageFor(m => m.DirectionLineData.directionLineDescription)
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>@Html.TextBoxFor(m => m.DirectionLineData.directionLineText)</td>
+                                    <td>@Html.TextBoxFor(m => m.DirectionLineData.directionLineDescription)</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                    <table>
+                        <tr>
+                            <td>
+                                @Html.HiddenFor(m => m.DirectionData.directionID)
+                                @Html.HiddenFor(m => m.DirectionData.directionTitle)
+                                @Html.HiddenFor(m => m.DirectionData.directionDescription)
+                                @Html.HiddenFor(m => m.DirectionData.recipeID)
+                                @Html.HiddenFor(m => m.DirectionLineData.directionID)
+
+                                @Html.AntiForgeryToken()
+                                <div class="mfControls ">
+                                    <button type="submit" class="btn btn-sm btn-primary save-edit"> Save </button>
+                                    @Html.ActionLink("Back", "EditRecipeStep3", "Recipe", new { id = Model.DirectionData.directionID }, new { @class = "button btn btn-sm btn-default-2" })
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</section>

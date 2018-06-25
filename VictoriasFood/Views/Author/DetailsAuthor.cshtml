@@ -1,0 +1,99 @@
+﻿@model VictoriasFood.Models.Author
+@{
+    ViewBag.Title = "User Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (Session["AuthorID"] != null)
+    {
+        ViewBag.SessionAuthor = (int)Session["AuthorID"];
+    }
+    else
+    {
+        ViewBag.SessionAuthor = 0;
+    }
+}
+<section class="well-sm-2">
+   
+    <div class="container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12">
+                <h2>User Details</h2>
+                <h3 class="text-bold">@Html.ActionLink("See all recipes from " + @Model.authorFirstName + " " + @Model.authorLastName, "RecipesByAuthor", "Recipe", new { id = @Model.authorID }, null)</h3>
+                @if ((User.IsInRole("CanManageEverything")) || (ViewBag.SessionAuthor == Model.authorID))
+                {                                    
+                    <div class="wrapper-edit-button">
+                        @Html.ActionLink("Edit", "EditAuthor", "Author", new { id = Model.authorID }, new { @class = "btn btn-xs btn-primary" })
+                    </div>   
+                }
+                <table class="table-bordered">
+                    <tr class="table-row">
+                        <th>First name</th>
+                        <td>
+                            @Model.authorFirstName
+                        </td>
+                    </tr>
+                    <tr class="table-row">
+                        <th>Second name</th>
+                        <td>
+                            @Model.authorSecondName
+                        </td>
+                    </tr>
+                    <tr class="table-row">
+                        <th>Last name</th>
+                        <td>
+                            @Model.authorLastName
+                        </td>
+                    </tr>
+                    <tr class="table-row">
+                        <th>Address</th>
+                        <td>
+                            @Model.addressLine1
+                        </td>
+                    </tr>
+                    <tr class="table-row">
+                        <th>Zip code</th>
+                        <td>
+                            @Model.addressLine2
+                        </td>
+                    </tr>
+                    <tr class="table-row">
+                        <th>Telephone number</th>
+                        <td>
+                            @Model.telephoneNumber
+                        </td>
+                    </tr>
+                    <tr class="table-row">
+                        <th>Author CV</th>
+                        <td>
+                            @Model.authorCv
+                        </td>
+                    </tr>
+                    <tr class="table-row">
+                        <th>Author facebook page</th>
+                        <td>
+                            @Model.facebook
+                        </td>
+                    </tr>
+                    <tr class="table-row">
+                        <th>Author twitter page</th>
+                        <td>
+                            @Model.twitter
+                        </td>
+                    </tr>
+                    <tr class="table-row">
+                        <th>Author instagram page</th>
+                        <td>
+                            @Model.instagram
+                        </td>
+                    </tr>
+                    <tr class="table-row">
+                        <th>Author website</th>
+                        <td>
+                            @Model.website
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+

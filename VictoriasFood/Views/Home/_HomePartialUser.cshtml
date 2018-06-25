@@ -1,0 +1,36 @@
+﻿<!-- logo + Search -->
+<section class="well-xs bg1 display-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 wow fadeInLeft">
+                <div class="rd-navbar-brand offset-1">
+                    <span class="brand-slogan">Wellcome to</span>
+                    <span class="brand-name text-primary text-bold">@Html.ActionLink("Food", "Index", "Home")<br> <span>@Html.ActionLink("recipes", "Index", "Home")</span></span>
+                    <span class="brand-slogan text-thin">@Html.ActionLink("Tasty ideas", "Index", "Home")</span>
+                </div>
+            </div>
+            <div class="col-md-4 col-md-preffix-5 wow fadeInRight block1">
+                <h3 class="line-height-1 text-default-1 text-bold">
+                    Hungry?<br>
+                    Find here<br>
+                    the best recipes
+                </h3>                
+                <!-- RD Navbar Search -->
+                @using (Html.BeginForm("SearchRecipes", "Recipe"))
+                {
+                    <div class="rd-navbar-search rd-navbar-search1">
+                        <label class="rd-navbar-search-form-input">
+                            <input type="text" name="searchInputText" id="searchInputText" placeholder="Search recipes" autocomplete="off" />
+                        </label>
+
+                        <button type="submit" class="rd-navbar-search-form-submit" id="search-submit"></button>
+                        <span class="rd-navbar-live-search-results"></span>
+                        <button type="submit" class="rd-navbar-search-toggle" data-rd-navbar-toggle=".rd-navbar-search"></button>
+                    </div>
+                <!-- END RD Navbar Search -->
+                }
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END logo + Search -->

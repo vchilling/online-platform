@@ -1,17 +1,76 @@
-﻿@{
+﻿@model VictoriasFood.Models.ContactMailModel
+@{
     ViewBag.Title = "Contact";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<!-- Contact us -->
+<section class="well-sm-8">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 ">
+                <h2>@ViewBag.Title</h2>
+                <h3>@ViewBag.Message</h3>
+                <h3 class="text-bold text-primary line-height-3 offset-12">
+                    Bulgaria - Sofia,<br>
+                    Vitosha Blvd. №15                   
+                </h3>
+                <dl class="contact_list">                    
+                    <dt>Telephone:</dt>
+                    <dd>
+                        <a href="callto:#">+359 888 898989</a>
+                    </dd>
+                    <dt>FAX:</dt>
+                    <dd>
+                        <a href="callto:#">+1 800 889 9898</a>
+                    </dd>
+                    <dd>
+                        E-mail:
+                        <a href="mailto:victoriafoodrecipes@gmail.com" class="contact-email">foodrecipes@gmail.com</a>
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-md-8">
+                <!-- RD Mailform -->
+                @using (Html.BeginForm("Contact", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "contact-form", @class = "rd-mailform", role = "form" }))
+                {
+                    @Html.ValidationSummary()
+                    <fieldset>                        
+                        <label data-add-placeholder>
+                            @Html.TextBoxFor(m => m.Name, new { @placeholder = "Name *", @type = "text" })
+                        </label>                       
+                        <label data-add-placeholder>
+                            @Html.TextBoxFor(m => m.Email, new { @placeholder = "Email Address *", @type = "text"})
+                        </label>                        
+                        <label data-add-placeholder>
+                            @Html.TextBoxFor(m => m.Telephone, new { @placeholder = "Telephone Number", @type = "text" })
+                        </label>                       
+                        <label class="message" data-add-placeholder>
+                            @Html.TextAreaFor(m => m.Message, new { @placeholder = "Message *" })
+                        </label>          
+                        <div class="message-required-fields"><p>* Required Fields</p></div>
+                        <div class="mfInfo">
+                            <label name="lblMessage" class="lblMessage"></label>
+                        </div>
+                        <div class="mfControls">
+                            <input type="submit" value="Send message" name="submit" class="button btn btn-xs btn-default-2">
+                            <input type="reset" value="Reset" name="MFReset" class="button btn btn-xs btn-default-2">                            
+                        </div>
+                    </fieldset>
+                }
+                <!-- END RD Mailform -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END Contact us -->
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<!-- RD Google Map -->
+<div class="rd-google-map">
+    <div id="google-map" class="rd-google-map__model" data-zoom="12" data-x="23.319941" data-y="42.698334"></div>
+    <ul class="rd-google-map__locations">
+        <li data-x="23.319941" data-y="42.698334">
+            <p>Bulgaria, Sofia, Blvd. Vitosha №15<span>0359 888 898989</span></p>                         
+        </li>
+    </ul>
+</div>
+<!-- END RD Google Map -->

@@ -1,0 +1,46 @@
+﻿@model VictoriasFood.ViewModels.RecipeTipIESuitableFor
+@{
+    ViewBag.Title = "Create Recipe Step 4";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="well-sm-8">
+    <div class="container recipe-container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12 edit-recipe-body">
+                <h4 class="text-primary">Create recipe - Step 4</h4>
+                <div class="edit-recipe-step">
+                    <p class="text-primary">Last steps:</p>
+                    <div class="next-steps">
+                        <p class="text-primary">Do you have some tip for this recipe?</p>
+                        @if (Model.TipData != null)
+                        {
+                            <span>
+                                @Html.ActionLink("Edit tip", "CreateRecipeEditTip", "Tip", new { id = Model.TipData.tipID }, null)
+                            </span>
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Add tip", "CreateRecipeAddTip", "Tip", new { id = Model.RecipeData.recipeID }, null)
+                        }
+                        <p class="text-primary">Is recipe suitable for special diet category?</p>
+                        @if (Model.SuitableForData.Any())
+                        {
+                            <span>
+                                @Html.ActionLink("Edit Suitable for category", "CreateRecipeEditSuitableFor", "SuitableFor", new { id = Model.RecipeData.recipeID }, null)
+                            </span>
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Add recipe to Suitable for category", "CreateRecipeAddToSuitableFor", "SuitableFor", new { id = Model.RecipeData.recipeID }, null)
+                        }
+                    </div>
+                    <div>
+                        @Html.ActionLink("Finish... See recipe", "DetailsRecipe", "Recipe", new { id = Model.RecipeData.recipeID }, new { @class = "button btn btn-sm btn-default-2" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

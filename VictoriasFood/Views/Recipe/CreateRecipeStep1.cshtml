@@ -1,0 +1,68 @@
+﻿@model VictoriasFood.ViewModels.RecipeIESubcategories
+@{
+    ViewBag.Title = "Create Recipe Step 1";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="well-sm-8">
+    <div class="container recipe-container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12 edit-recipe-body">           
+                @using (Html.BeginForm("CreateRecipeInDatabase", "Recipe", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <h4 class="text-primary">Create recipe - Step 1</h4>
+                    <div class="message-required-fields"><p>* All fields are required</p></div>
+                    <div class="edit-recipe-step">
+                        <p class="text-primary">Main information</p>
+                        <div>
+                            @Html.LabelFor(m => m.RecipeData.recipeTitle) *
+                            @Html.TextBoxFor(m => m.RecipeData.recipeTitle, new { placeholder = "Type here" })
+                            @Html.ValidationMessageFor(m => m.RecipeData.recipeTitle)
+                        </div>
+                        <div>
+                            @Html.LabelFor(m => m.RecipeData.recipeDescription) *
+                            @Html.TextBoxFor(m => m.RecipeData.recipeDescription, new { placeholder = "Type here" })
+                            @Html.ValidationMessageFor(m => m.RecipeData.recipeDescription)
+                        </div>
+                        <div>
+                           <span class="ready-in-icon"></span>  @Html.LabelFor(m => m.RecipeData.recipeReadyIn) *
+                           @Html.TextBoxFor(m => m.RecipeData.recipeReadyIn, new {placeholder = "Type in format HH:MM. Note that 00:00 is not valid value." })
+                           @Html.ValidationMessageFor(m => m.RecipeData.recipeReadyIn)
+                        </div>
+                        <div>
+                            <span class="servings-icon"></span> @Html.LabelFor(m => m.RecipeData.recipeNumberOfServings) *
+                            @Html.TextBoxFor(m => m.RecipeData.recipeNumberOfServings, new { placeholder = "Type number here" })
+                            @Html.ValidationMessageFor(m => m.RecipeData.recipeNumberOfServings)
+                        </div>
+                        <div>
+                            <font> Select category *</font>  
+                            @Html.DropDownListFor(m => m.RecipeData.subcategoryID,
+                            new SelectList(Model.SubcategoryData, "subcategoryID", "subcategoryTitle"), "--- Select the Subcategory ---", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.RecipeData.subcategoryID)
+                        </div>                       
+                    </div>
+                    <div class="edit-recipe-step">
+                        <p class="text-primary">Image *</p>
+                        <div class="row margin-clear">                           
+                            <div class="col-md-6">                                                             
+                                <input type="file" name="file" id="file" />   
+                                @Html.ValidationMessageFor(m => m.RecipeData.recipeImage)
+                            </div>
+                        </div>
+                    </div>
+                    <table>
+                        <tr>
+                            <td>
+                                @Html.HiddenFor(m => m.RecipeData.authorID)
+                                @Html.AntiForgeryToken()
+                                <div class="mfControls ">                                    
+                                    <button type="submit" value="Upload" class="btn btn-sm btn-primary save-edit"> Next step </button>
+                                    @Html.ActionLink("Cancel", "Index", "Home", new { @class = "button btn btn-sm btn-default-2" })
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</section>

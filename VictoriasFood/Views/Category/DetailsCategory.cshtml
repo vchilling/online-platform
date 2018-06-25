@@ -1,0 +1,65 @@
+﻿@model VictoriasFood.ViewModels.CategoryIESubcategory
+
+@{
+    ViewBag.Title = "Details Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="well-sm-2">   
+    <div class="container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12">
+                <h2>Details of Category </h2>  
+                <div class="wrapper-edit-button">
+                    @Html.ActionLink("Edit category", "EditCategory", "Category", new { id = Model.CategoryData.categoryID }, new { @class = "btn btn-xs btn-primary" })
+                    @if (@ViewBag.CanDeleteStatus)
+                    {
+                        @Html.ActionLink("Delete category", "DeleteCategory", "Category",
+                            new { confirm = true, id = Model.CategoryData.categoryID },
+                            new { onclick = "return confirm('Do you really want to delete this category permanently?')", @class = "btn btn-xs btn-primary" })
+                    }
+                    else
+                    {
+                        <div class="message-required-fields" style="margin-top: 20px;">
+                            <p>
+                                <strong>Delete option is disabled.</strong><br />
+                                There are subcategories in this category.
+                                First subcategories must be moved to another category and after this can be deleted!<br />
+                                @Html.ActionLink("See all subcategories from " + Model.CategoryData.categoryTitle + " category", "AllSubcategories", "Category", new { id = Model.CategoryData.categoryID }, null)
+                            </p>
+                        </div>
+                    }        
+                </div>
+                <table class="table-bordered">
+                    <thead>
+                        <tr class="table-row table-header">
+                            <th>Title of the Category</th>
+                            <th>Description of the Category</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-row">
+                            <td>
+                                @Model.CategoryData.categoryTitle
+                            </td>
+                            <td>
+                                @Model.CategoryData.categoryDescription
+                            </td>
+                        </tr>
+                        <tr class="table-row table-header">
+                            <td colspan="2">Subcategories:</td>
+                        </tr>
+                        @foreach (var subcategory in Model.SubcategoryData)
+                        {
+                            <tr class="table-row">
+                                <td colspan="2">
+                                    @subcategory.subcategoryTitle
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table> 
+            </div>
+        </div>
+    </div>
+</section>

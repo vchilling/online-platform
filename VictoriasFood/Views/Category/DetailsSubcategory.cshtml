@@ -1,0 +1,54 @@
+﻿@model VictoriasFood.ViewModels.CategorySubcategory
+
+@{
+    ViewBag.Title = "Details Subcategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="well-sm-2">    
+    <div class="container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12">
+                <h2>Details of Subcategory </h2>
+                <div class="wrapper-edit-button">
+                    @Html.ActionLink("Edit subcategory", "EditSubcategory", "Category", new { id = Model.SubcategoryData.subcategoryID }, new { @class = "btn btn-xs btn-primary" })                 
+                    @if (@ViewBag.CanDeleteStatus)
+                    {
+                        @Html.ActionLink("Delete subcategory", "DeleteSubcategory", "Category",
+                            new { confirm = true, id = Model.SubcategoryData.subcategoryID },
+                            new { onclick = "return confirm('Do you really want to delete this subcategory permanently?')", @class = "btn btn-xs btn-primary" })
+                    }
+                    else
+                    {
+                        <div class="message-required-fields" style="margin-top: 20px;"><p> 
+                            <strong>Delete option is disabled.</strong><br/>
+                            There are recipes in this subcategory.
+                            First recipes subcategory must be changed and after subcategory can be deleted!<br />
+                            @Html.ActionLink("See all recipes from " + Model.SubcategoryData.subcategoryTitle + " subcategory", "SubcategoryRecipes", "Recipe", new { id = Model.SubcategoryData.subcategoryID }, null)                            
+                            </p></div>
+                    }                     
+                </div>
+                <table class="table-bordered">
+                    <tr class="table-row">
+                        <th>The Title of the Subcategory</th>
+                        <td>
+                            @Model.SubcategoryData.subcategoryTitle
+                        </td>
+                    </tr>
+                    <tr class="table-row">
+                        <th>The Description of the Subcategory </th>
+                        <td>
+                            @Model.SubcategoryData.subcategoryDescription
+                        </td>
+                    </tr>
+                    <tr class="table-row">
+                        <th>Category</th>
+                        <td>
+                            @Model.CategoryData.categoryTitle
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

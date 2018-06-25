@@ -1,0 +1,30 @@
+﻿@model VictoriasFood.ViewModels.CategoryIESubcategory
+
+@{
+    ViewBag.Title = "All Subcategories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="well-md-2 bg-default-4">
+    <div class="container text-center text-sm-left">
+        <h2>@Model.CategoryData.categoryTitle</h2>
+        <p>@Model.CategoryData.categoryDescription</p>
+        <div class="row isotope"
+             data-isotope-group="gallery"
+             data-isotope-layout="fitRows"
+             data-lightbox="gallery">
+           @foreach (var subcategory in Model.SubcategoryData)
+           {
+                <div class="col-md-4 col-sm-4" data-filter="type-1">
+                    <div class="isotope_ctn bg-white">
+                        <h6 class="text-bold text-primary">                            
+                            @Html.ActionLink(subcategory.subcategoryTitle, "SubcategoryRecipes", "Recipe", new { id = subcategory.subcategoryID }, null)
+                        </h6>
+                        <p>
+                            @subcategory.subcategoryDescription
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

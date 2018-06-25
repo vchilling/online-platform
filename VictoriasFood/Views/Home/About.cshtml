@@ -1,7 +1,50 @@
 ﻿@{
     ViewBag.Title = "About";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
-
-<p>Use this area to provide additional information.</p>
+<!-- Welcome to our site -->
+<section class="well-sm-2">
+    <div class="container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-7">
+                <h2>Welcome to our site</h2>                
+                <h3 class="text-primary offset-8 text-bold">@ViewBag.Message</h3>
+                <p class="letter-spacing-2">
+                    FOOD Recipes is the original and largest food-focused social network created for cooks by cooks; 
+                    where everyone plays a part in helping cooks discover and share the joy of home cooking.
+                </p>
+                <p class="letter-spacing-2">
+                    At foodrecipes.com, you’ll find healthy dishes that don’t sacrifice any of the flavor that
+                    can be found in their full-fat origins.  Our recipes must be both healthy and tasty because after all, 
+                    this is the same food we cook on a daily basis for friends and family, and they are some of my toughest critics!
+                </p>
+                <p class="letter-spacing-2">
+                    Our mission is to give you easy way to find the best recipes for you and your family. Find recipes by categories or suitable for your healthy diet category. 
+                    Search for recipes by our searching engine. Add your own recipe. Add comments and rate recipes. 
+                    Explore and cook... Enjoy your food!
+                </p>
+            </div>
+            <div class="col-md-5">
+                <img class="offset-9" width="470" height="392" alt="About us" src="../../Content/images/page-2_img04.jpg">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END Welcome to our site -->
+<!-- Banner -->
+<section class="well-md-1 bg3">
+    <div class="container">
+        <div class="row text-center text-sm-left">
+            <div class="col-md-7 col-md-preffix-5 col-sm-preffix-3 col-sm-9">
+                <h2>FOOD recipes</h2>
+                <p class="offset-10">
+                    Whether you’re looking for healthy recipes or ideas to use up last night’s chicken, we’ve a lot of tested recipes to choose from, so you’re sure to find the perfect dish.
+                </p>
+                <a href="@Url.Action("AllCategories", "Category")" class="btn btn-sm btn-default btn-default-1 offset-5">
+                    All categories
+                    <span></span>
+                </a> 
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END Banner -->

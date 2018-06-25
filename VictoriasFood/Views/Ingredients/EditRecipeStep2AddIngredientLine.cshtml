@@ -1,0 +1,63 @@
+﻿@model VictoriasFood.ViewModels.IngredientLineIngredientsIDRecipeID
+@{
+    ViewBag.Title = "Create Ingredient Line";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="well-sm-8">
+    <div class="container recipe-container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12 edit-recipe-body">
+                @using (Html.BeginForm("CreateIngredientLineForExistingRecipeInDatabase", "Ingredients"))
+                {
+                    <h4 class="text-primary">Create Ingredient Line</h4>
+                    <div class="message-required-fields"><p>* Required Fields</p></div>
+                    <div class="edit-recipe-step">
+                        <p class="text-primary">Ingredient line:</p>
+                        <div class="edit-recipe-ingredients">
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th>@Html.LabelFor(m => m.IngredientLineData.itemTitle) *</th>
+                                        <th>@Html.LabelFor(m => m.IngredientLineData.itemDescription)</th>
+                                        <th>@Html.LabelFor(m => m.IngredientLineData.baseQuantity) *</th>
+                                        <th>@Html.LabelFor(m => m.IngredientLineData.measurementMetricSystem)</th>                                  
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.IngredientLineData.itemTitle)
+                                            @Html.ValidationMessageFor(m => m.IngredientLineData.itemTitle)
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.IngredientLineData.itemDescription)
+                                            @Html.ValidationMessageFor(m => m.IngredientLineData.itemDescription)
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.IngredientLineData.baseQuantity)
+                                            @Html.ValidationMessageFor(m => m.IngredientLineData.baseQuantity)
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.IngredientLineData.measurementMetricSystem)
+                                        @Html.ValidationMessageFor(m => m.IngredientLineData.measurementMetricSystem)
+                                    </td>                               
+                                </tr>
+                            </table>
+                        </div>
+                        <div>
+                            @Html.HiddenFor(m => m.IngredientLineData.calculatedQuantity, new { Value = "1" })
+                            @Html.HiddenFor(m => m.IngredientLineData.measurementImperialSystem, new { Value = "" })
+                            @Html.HiddenFor(m => m.IngredientLineData.unitConverter, new { Value = "1" })
+                            @Html.HiddenFor(m => m.RecipeIDData)
+                            @Html.HiddenFor(m => m.IngredientsIDData)
+                            @Html.AntiForgeryToken()
+
+                            <button type="submit" class="btn btn-sm btn-primary save-edit">Save</button>
+                            @Html.ActionLink("Back", "EditRecipeStep2", "Ingredients", new { id = Model.IngredientsIDData }, new { @class = "button btn btn-sm btn-default-2" })
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>

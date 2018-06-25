@@ -1,31 +1,272 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Home";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<!-- Home partitial banner -->
+@if (User.IsInRole("CanManageRecipes") || User.IsInRole("CanManageEverything"))
+{
+    @Html.Partial("_HomePartialUser")
+} else
+{
+    @Html.Partial("_HomePartialGuest")
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+}
+<!-- Gallery -->
+<section>
+    <div class="row row-no-gutter">
+        <div class="col-md-4 col-sm-4">
+            <div class="thumb wow fadeInLeft">                
+                <a href="#" class="tile-link type-seafood">
+                    <img src="../../Content/images/lg_page-1_img02.jpg" data-srcset-base="../../Content/images/" data-srcset-ext="_page-1_img02.jpg" data-srcset="lg 991w, md 1199w, lg 1400w" width="684" height="598" alt="Image 1" />
+                    <div class="thumb__overlay"></div>
+                    <div class="thumb__titel">
+                        <div>
+                            <span class="restaurant-icon-01"></span>
+                            <h3>
+                                seafood<br>
+                                & fish
+                            </h3>
+                        </div>
+
+                    </div>
+                </a>
+            </div>
+            <div class="thumb wow fadeInLeft" data-wow-delay="1s">
+                <a href="#" class="tile-link type-pizza">
+                    <img src="../../Content/images/lg_page-1_img03.jpg" data-srcset-base="../../Content/images/" data-srcset-ext="_page-1_img03.jpg" data-srcset="lg 991w, md 1199w, lg 1400w" width="684" height="598" alt="Image 2" />
+                    <div class="thumb__overlay"></div>
+                    <div class="thumb__titel">
+                        <div>
+                            <span class="restaurant-icon-18"></span>
+                            <h3>pizza</h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 wow fadeIn">
+            <div class="thumb">
+                <a href="#" class="tile-link type-bbq-grilling">
+                    <img src="../../Content/images/lg_page-1_img04.jpg" data-srcset-base="../../Content/images/" data-srcset-ext="_page-1_img04.jpg" data-srcset="lg 991w, md 1199w, lg 1400w" width="684" height="598" alt="Image 1" />
+                    <div class="thumb__overlay"> </div>
+                    <div class="thumb__titel">
+                        <div>
+                            <span class="restaurant-icon-31"></span>
+                            <h3>
+                                BBQ & 
+                                <br>Grilling
+                            </h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="thumb wow fadeIn" data-wow-delay="1s">
+                <a href="#" class="tile-link type-pasta">
+                    <img src="../../Content/images/lg_page-1_img05.jpg" data-srcset-base="../../Content/images/" data-srcset-ext="_page-1_img05.jpg" data-srcset="lg 991w, md 1199w, lg 1400w" width="684" height="598" alt="Image 2" />
+                    <div class="thumb__overlay"></div>
+                    <div class="thumb__titel">
+                        <div>
+                            <span class="restaurant-icon-25"></span>
+                            <h3>
+                                Pasta
+                            </h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4">
+            <div class="thumb wow fadeInRight">
+                <a href="#" class="tile-link type-cocktails">
+                    <img src="../../Content/images/lg_page-1_img06.jpg" data-srcset-base="../../Content/images/" data-srcset-ext="_page-1_img06.jpg" data-srcset="lg 991w, md 1199w, lg 1400w" width="684" height="598" alt="Image 1" />
+                    <div class="thumb__overlay"></div>
+                    <div class="thumb__titel">
+                        <div>
+                            <span class="restaurant-icon-30"></span>
+                            <h3>
+                                Cocktails
+                            </h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="thumb wow fadeInRight" data-wow-delay="1s">
+                <a href="#" class="tile-link type-cakes">
+                    <img src="../../Content/images/lg_page-1_img07.jpg" data-srcset-base="../../Content/images/" data-srcset-ext="_page-1_img07.jpg" data-srcset="lg 991w, md 1199w, lg 1400w" width="684" height="598" alt="Image 2" />
+                    <div class="thumb__overlay"></div>
+                    <div class="thumb__titel">
+                        <div>
+                            <span class="restaurant-icon-27"></span>
+                            <h3>Cakes</h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+</section>
+<!-- END Gallery -->
+<!-- Searching for recipes -->
+<section class="well-sm-1">
+    <div class="container">
+        <h2> Searching for recipes is easy as 1, 2, 3, 4...</h2>
+        <h3 class="line-height-2 text-default-1 offset-2">
+            Enjoy your food, find the best recipes specially for you and your family.
+        </h3>
+        <ul class="row list">
+            <li class="col-md-3 wow fadeInLeft">
+                <span class="thin-icon-email-search"></span>
+                <h3>Search</h3>
+                <p>
+                    You can search for whatever you want to eat and you’ll find the best recipes.
+                </p>
+            </li>            
+            <li class="col-md-3">
+                <span class="thin-icon-book"></span>
+                <h3>Browse</h3>
+                <p>
+                    Find recipes by categories. 
+                    Just select meal type that you seraching for you will find proper recipes.
+                </p>
+            </li>    
+            <li class="col-md-3">
+                <span class="thin-icon-checklist"></span>
+                <h3>Choose</h3>
+                <p>
+                    You can also search for recipes by suitable for categories.
+                    You can choose recipe that is suitable for your healthy diet.
+                </p>
+            </li>        
+            <li class="col-md-3 wow fadeInRight">
+                <span class="thin-icon-chat"></span>
+                <h3>Enjoy</h3>
+                <p>
+                    Add your own recipe. 
+                    <br/> Add comments and rate recipes.
+                    Explore and cook... 
+                    <br />Enjoy your food!
+                </p>
+            </li>
+        </ul>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+</section>
+<!-- END  Searching for recipes -->
+<!-- Breakfast -->
+<section class="well-xs-1 bg-default-4">
+    <div class="container">
+        <div class="row text-center text-sm-left">
+            <div class="col-md-3 col-sm-6">
+                <h3 class="line-height-2 text-bold text-default">Breakfast</h3>
+                <ul class="list2">
+                    <li>
+                        @Html.ActionLink("Seafood & Fish", "SubcategoryRecipes", "Recipe", new { id = 13 }, null)
+                    </li>
+                    <li>
+                        @Html.ActionLink("Breakfast Eggs", "SubcategoryRecipes", "Recipe", new { id = 15 }, null)
+                    </li>
+                    <li>
+                        @Html.ActionLink("Pancake", "SubcategoryRecipes", "Recipe", new { id = 4 }, null)
+                    </li>
+                    <li>
+                        @Html.ActionLink("Breakfast Bread", "SubcategoryRecipes", "Recipe", new { id = 14 }, null)
+                    </li>
+                    <li>
+                        @Html.ActionLink("French Toast", "SubcategoryRecipes", "Recipe", new { id = 16 }, null)
+                    </li>                   
+                </ul>
+            </div>
+            <div class="col-md-3 col-sm-6 offset-7">
+                <h3 class="line-height-2 text-bold text-default">Dinner menu</h3>
+                <ul class="list2">
+                    <li>
+                        @Html.ActionLink("Main dish", "SubcategoryRecipes", "Recipe", new { id = 1 }, null)
+                    </li>
+                    <li>
+                        @Html.ActionLink("Pasta recipes", "SubcategoryRecipes", "Recipe", new { id = 7 }, null)
+                    </li> 
+                    <li>
+                        @Html.ActionLink("Pizza recipes", "SubcategoryRecipes", "Recipe", new { id = 2 }, null)
+                    </li>
+                    <li>
+                        @Html.ActionLink("Salad recipes", "SubcategoryRecipes", "Recipe", new { id = 5 }, null)
+                    </li>
+                    <li>
+                        @Html.ActionLink("Soup recipes", "SubcategoryRecipes", "Recipe", new { id = 6 }, null)
+                    </li>                                      
+                </ul>
+            </div>
+            <div class="col-md-3 col-sm-6 offset-6">
+                <h3 class="line-height-2 text-bold text-default">Appetizers</h3>
+                <ul class="list2">
+                    <li>
+                        @Html.ActionLink("Dips & Spreads", "SubcategoryRecipes", "Recipe", new { id = 17 }, null)
+                    </li>
+                    <li>
+                        @Html.ActionLink("Cheese Appetizers", "SubcategoryRecipes", "Recipe", new { id = 19 }, null)
+                    </li>
+                    <li>
+                        @Html.ActionLink("Meat & Poultry", "SubcategoryRecipes", "Recipe", new { id = 21 }, null)
+                    </li>
+                    <li>
+                        @Html.ActionLink("Seafood Appetizers", "SubcategoryRecipes", "Recipe", new { id = 23 }, null)
+                    </li>
+                    <li>
+                        @Html.ActionLink("Snack Recipes", "SubcategoryRecipes", "Recipe", new { id = 22 }, null)
+                    </li>                 
+                </ul>
+            </div>
+            <div class="col-md-3 col-sm-6 offset-6">
+                <h3 class="line-height-2 text-bold text-default">Desserts</h3>
+                <ul class="list2">
+                    <li>
+                        @Html.ActionLink("Cookies", "SubcategoryRecipes", "Recipe", new { id = 9 }, null)
+                    </li>
+                    <li>
+                        @Html.ActionLink("Cake", "SubcategoryRecipes", "Recipe", new { id = 3 }, null)
+                    </li>
+                    <li>
+                        @Html.ActionLink("Chocolate Desserts", "SubcategoryRecipes", "Recipe", new { id = 10 }, null)
+                    </li>
+                    <li>
+                        @Html.ActionLink("Fruit Desserts", "SubcategoryRecipes", "Recipe", new { id = 11 }, null)
+                    </li>
+                    <li>
+                        @Html.ActionLink("Specialty Desserts", "SubcategoryRecipes", "Recipe", new { id = 12 }, null)
+                    </li>                    
+                </ul>
+            </div>
+        </div>
     </div>
-</div>
+</section>
+<!-- END Breakfast -->
+<script type="text/javascript">
+    (function () {
+        //var parentUrl = encodeURIComponent(window.location.href);
+        var categoryLinks = document.getElementsByClassName('tile-link');
+
+        for (var index = 0; index < categoryLinks.length; index++)
+        {
+            switch (categoryLinks[index].getAttribute("class")) {
+                case "tile-link type-seafood":
+                    categoryLinks[index].setAttribute('href', "/Recipe/SubcategoryRecipes/13");
+                    break;
+                case "tile-link type-pizza":
+                    categoryLinks[index].setAttribute('href', "/Recipe/SubcategoryRecipes/2");
+                    break;
+                case "tile-link type-bbq-grilling":
+                    categoryLinks[index].setAttribute('href', "/Recipe/SubcategoryRecipes/8");
+                    break;
+                case "tile-link type-pasta":
+                    categoryLinks[index].setAttribute('href', "/Recipe/SubcategoryRecipes/7");
+                    break;
+                case "tile-link type-cocktails":
+                    categoryLinks[index].setAttribute('href', "/Recipe/SubcategoryRecipes/28");
+                    break;
+                case "tile-link type-cakes":
+                    categoryLinks[index].setAttribute('href', "/Recipe/SubcategoryRecipes/3");
+                    break;
+                default:
+            }
+        };
+    })();
+</script>

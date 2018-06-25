@@ -1,0 +1,54 @@
+﻿@model VictoriasFood.ViewModels.IngredientLineIngredientsID
+@{
+    ViewBag.Title = "Edit Recipe Step 2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="well-sm-8">
+    <div class="container recipe-container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12 edit-recipe-body">
+                @using (Html.BeginForm("UpdateIngredientLineInDatabase", "Ingredients"))
+                {
+                    <h4 class="text-primary">Edit recipe - Step 2</h4>
+                    <div class="message-required-fields"><p>* Required Fields</p></div>
+                    <div class="edit-recipe-step">
+                        <p class="text-primary">Ingredients:</p>
+                        <div class="edit-recipe-ingredients">
+                            <div style="text-align: right;">
+                                @Html.ActionLink("Delete", "DeleteIngredientLine", "Ingredients",
+                                new { confirm = true, id = Model.IngredientLineData.ingredientLineID },
+                                new { onclick = "return confirm('Do you really want to delete this ingredient line?')", @class = "btn btn-xs btn-primary" })
+                            </div>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th>@Html.LabelFor(m => m.IngredientLineData.itemTitle) *</th>
+                                        <th>@Html.LabelFor(m => m.IngredientLineData.itemDescription)</th>
+                                        <th>@Html.LabelFor(m => m.IngredientLineData.baseQuantity) *</th>
+                                        <th>@Html.LabelFor(m => m.IngredientLineData.measurementMetricSystem)</th>
+                                    </tr>                                  
+                                    <tr>
+                                        <td>@Html.TextBoxFor(m => m.IngredientLineData.itemTitle)</td>
+                                        <td>@Html.TextBoxFor(m => m.IngredientLineData.itemDescription)</td>
+                                        <td>@Html.TextBoxFor(m => m.IngredientLineData.baseQuantity)</td>
+                                        <td>@Html.TextBoxFor(m => m.IngredientLineData.measurementMetricSystem)</td>                                      
+                                    </tr>
+                                </table>                               
+                            </div>
+                            <div>
+                                @Html.HiddenFor(m => m.IngredientLineData.calculatedQuantity)
+                                @Html.HiddenFor(m => m.IngredientLineData.measurementImperialSystem)
+                                @Html.HiddenFor(m => m.IngredientLineData.unitConverter)
+                                @Html.HiddenFor(m => m.IngredientLineData.ingredientLineID)
+                                @Html.AntiForgeryToken()                               
+                                <button type="submit" class="btn btn-sm btn-primary save-edit"> Save </button>
+                                @Html.ActionLink("Back", "EditRecipeStep2", "Ingredients", new { id = Model.IngredientsIDData }, new { @class = "button btn btn-sm btn-default-2" })
+                            </div>
+                        </div>
+                    </div>       
+                }
+            </div>
+        </div>
+    </div>
+</section>

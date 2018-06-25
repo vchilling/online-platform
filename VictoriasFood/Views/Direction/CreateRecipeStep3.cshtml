@@ -1,0 +1,37 @@
+﻿@model VictoriasFood.Models.Direction
+@{
+    ViewBag.Title = "Create Recipe Step 3";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="well-sm-8">
+    <div class="container recipe-container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12 edit-recipe-body">
+                @using (Html.BeginForm("CreateDirectionInDatabase", "Direction"))
+                {
+                    <h4 class="text-primary">Create recipe - Step 3</h4>
+                    <div class="edit-recipe-step">
+                        <p class="text-primary">Add direction list to the recipe:</p>
+                        <div class="edit-recipe-ingredients">
+                            <div>
+                                @Html.LabelFor(m => Model.directionTitle)
+                                @Html.TextBoxFor(m => Model.directionTitle, new { placeholder = "Type here" })
+                            </div>
+                            <div>
+                                @Html.LabelFor(m => Model.directionDescription)
+                                @Html.TextBoxFor(m => Model.directionDescription, new { placeholder = "Type here" })
+                            </div>
+                            <div>
+                                @Html.HiddenFor(m => m.recipeID)
+                                @Html.AntiForgeryToken()
+                                    @*@Html.ActionLink("Add direction steps", "CreateDirectionLine", "Direction", new { id = Model.directionID }, new { @class = "button btn btn-sm btn-default-2" })*@
+                                    <button type="submit" class="btn btn-sm btn-primary save-edit"> Add direction steps </button>
+                            </div>
+                        </div>
+                    </div>                   
+                }
+            </div>
+        </div>
+    </div>
+</section>

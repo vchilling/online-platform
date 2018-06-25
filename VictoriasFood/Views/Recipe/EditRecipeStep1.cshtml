@@ -1,0 +1,100 @@
+﻿@model VictoriasFood.ViewModels.RecipeAllInformation
+@{
+    ViewBag.Title = "Edit Recipe Step 1";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="well-sm-8">
+    <div class="container recipe-container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12 edit-recipe-body">            
+                @using (Html.BeginForm("UpdateRecipeInDatabase", "Recipe", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <h4 class="text-primary">Edit recipe - Step 1</h4>
+                    <div class="message-required-fields"><p>* Required Fields</p></div>
+                    <div class="edit-recipe-step">
+                        <p class="text-primary">Main information</p>
+                        <div>
+                            @Html.LabelFor(m => m.RecipeData.recipeTitle) *
+
+                            @Html.TextBoxFor(m => m.RecipeData.recipeTitle)
+                            @Html.ValidationMessageFor(m => m.RecipeData.recipeTitle)
+                        </div>
+                        <div>
+                            @Html.LabelFor(m => m.RecipeData.recipeDescription) *
+
+                            @Html.TextBoxFor(m => m.RecipeData.recipeDescription)
+                            @Html.ValidationMessageFor(m => m.RecipeData.recipeDescription)
+                        </div>
+                        <div>
+                            <span class="ready-in-icon"></span>  @Html.LabelFor(m => m.RecipeData.recipeReadyIn) *                                                  
+                            @Html.EditorFor(m => m.RecipeData.recipeReadyIn)
+                            @Html.ValidationMessageFor(m => m.RecipeData.recipeReadyIn)
+                        </div>
+                        <div>
+                            <span class="servings-icon"></span> @Html.LabelFor(m => m.RecipeData.recipeNumberOfServings) *
+                            @Html.TextBoxFor(m => m.RecipeData.recipeNumberOfServings)
+                            @Html.ValidationMessageFor(m => m.RecipeData.recipeNumberOfServings)
+                        </div>
+                        <div>
+                            <span class="servings-icon"></span> @Html.LabelFor(m => m.RecipeData.subcategoryID) *
+                            @Html.DropDownListFor(m => m.RecipeData.subcategoryID,
+                            new SelectList(Model.SubcategoriesData, "subcategoryID", "subcategoryTitle"), "--- Select the Subcategory ---", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.RecipeData.subcategoryID)
+                        </div>                    
+                        <div>
+                            @Html.LabelFor(m => m.RecipeData.recipeImage) *
+                            <div class="row margin-clear">
+                                <div class="col-md-6">
+                                    <img src="@Model.RecipeData.recipeImage" style="border-radius: 15px;">
+                                    <input type="file" name="file" id="file" />
+                                    @Html.ValidationMessageFor(m => m.RecipeData.recipeImage)
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            @Html.HiddenFor(m => m.RecipeData.recipeID)
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-sm btn-primary save-edit"> Save main information</button>
+                        </div>
+                    </div>                  
+                    <div class="edit-recipe-step">
+                        <p class="text-primary">Next steps</p>
+                        <div class="next-steps">
+                            <p class="text-primary">Step 2</p>
+                            @foreach (var ingredients in Model.IngredientsData)
+                            {
+                                <span>@Html.ActionLink(("Edit ingredients list " + @ingredients.ingredientsCategoryTitle).ToString(), "EditRecipeStep2", "Ingredients", new { id = ingredients.ingredientsID }, null)</span>
+
+                            }
+                            <p class="text-primary">Step 3</p>
+                            <span>@Html.ActionLink("Edit direction list", "EditRecipeStep3", "Direction", new { id = Model.DirectionData.directionID }, null)</span>
+                            <p class="text-primary">Step 4</p>
+                            @if (Model.TipData != null)
+                            {
+                                <span>@Html.ActionLink("Edit tip", "EditRecipeStep4", "Tip", new { id = Model.TipData.tipID }, null)</span>
+                            }
+                            else
+                            {    
+                                 <span>@Html.ActionLink("Add tip", "CreateTip", "Tip", new { id = Model.RecipeData.recipeID }, null)</span>
+                            }
+                            <p class="text-primary">Step 5</p>
+                            @if (Model.SuitableForData.Any())
+                            {
+                                <span>@Html.ActionLink("Edit Suitable for category", "EditRecipeStep5", "SuitableFor", new { id = Model.RecipeData.recipeID }, null)</span>
+                            }
+                            else
+                            {
+                                <span>@Html.ActionLink("Add recipe to Suitable for category", "AddRecipeToSuitableFor", "SuitableFor", new { id = Model.RecipeData.recipeID }, null)</span>
+                            }
+                        </div>
+                        <div>
+                            @Html.ActionLink("Back", "DetailsRecipe", "Recipe", new { id = Model.RecipeData.recipeID }, new { @class = "button btn btn-sm btn-default-2" })
+                        </div>
+                    </div>                
+                }
+            </div>
+        </div>
+    </div>
+</section>
+

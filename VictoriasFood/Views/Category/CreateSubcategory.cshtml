@@ -1,0 +1,64 @@
+﻿@model VictoriasFood.ViewModels.SubcategoryIECategories
+@{
+    ViewBag.Title = "Create Subcategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="well-sm-2">
+    <div class="container">
+        <div class="row text-center text-md-left">
+            <div class="col-md-12">
+                <h2>Create New Subcategory</h2>
+
+                @using (Html.BeginForm("CreateSubcategoryInDatabase", "Category"))
+                {
+                    <div class="edit-form-group">
+                        <table>
+                            <tr>
+                                <th>
+                                    @Html.LabelFor(m => m.SubcategoryData.subcategoryTitle)
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(m => m.SubcategoryData.subcategoryTitle, new { placeholder = "Type here" })
+                                    @Html.ValidationMessageFor(m => m.SubcategoryData.subcategoryTitle)
+                                </td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <th>
+                                    @Html.LabelFor(m => m.SubcategoryData.subcategoryDescription)
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(m => m.SubcategoryData.subcategoryDescription, new { placeholder = "Type here" })
+                                </td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <th>
+                                    Choose Category
+                                </th>
+                                <td>
+                                    @Html.DropDownListFor(m => m.SubcategoryData.categoryID,
+                                    new SelectList(Model.CategoriesData, "categoryID", "categoryTitle"), "--- Select category ---", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.SubcategoryData.categoryID)                                                                    
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.AntiForgeryToken()
+                                <div class="mfControls ">
+                                    <button type="submit" class="btn btn-sm btn-primary save-edit">Save</button>
+                                </div>
+                            </th>
+                        </tr>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+

@@ -20,6 +20,23 @@ namespace VictoriasFood.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Recipe> Recipes { get; set; }
+        public DbSet<Ingredients> IngredientsList { get; set; }
+        public DbSet<IngredientLine> IngredientLines { get; set; }
+        public DbSet<RecipeIngredients> RecipeIngredientsList { get; set; }
+        public DbSet<IngredientsIngredientLine> IngredientsIngredientLines { get; set; }
+        public DbSet<Direction> DirectionList { get; set; }
+        public DbSet<DirectionLine> DirectionLines { get; set; }
+        public DbSet<Tip> Tips { get; set; }        
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Subcategory> Subcategories { get; set; }
+        public DbSet<SuitableFor> SuitableForCategories { get; set; }
+        public DbSet<RecipeSuitableFor> RecipeSuitableForCategories { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Favourite> Favourites { get; set; }        
+
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
