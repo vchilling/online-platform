@@ -10,6 +10,10 @@ Login functionality in MVC
 
 User interface, Admin panel
 
+Add, edit, delete content 
+
+Rate and review
+
 Responsive design 
 
 Data base created with Entity Framework Code-First Approach.
